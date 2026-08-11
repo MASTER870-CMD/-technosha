@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technoksha — Engineering Technology Partner | ZWCAD, Hexagon MI, Reverse Engineering</title>
+<meta name="description" content="Technoksha is a Bengaluru-based, GST-verified engineering technology partner — ZWCAD solutions, Hexagon Manufacturing Intelligence and CAD/CAM reverse engineering for manufacturers.">
+<link rel="icon" type="image/png" href="./assets/cropped-favicon-270x270.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --text:#1B2430; --text-soft:#59626F; --text-faint:#8A93A1;
+  --bg:#FFFFFF; --bg-soft:#F6F8FB; --bg-soft-2:#EEF1F5; --border:#E5E9EE;
+  --blue:#1B4ED8; --blue-dark:#153FB0; --blue-tint:#EAF0FE;
+  --gold:#C8860D; --gold-dark:#A66F09; --gold-tint:#FBF2E1;
+  --font-head:'Manrope', sans-serif; --font-body:'Inter', sans-serif;
+  --container:1180px; --radius:14px; --radius-sm:9px; --nav-h:76px;
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{ margin:0; font-family:var(--font-body); color:var(--text-soft); background:var(--bg); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; margin:0; padding:0; }
+h1,h2,h3,h4{ font-family:var(--font-head); color:var(--text); margin:0; line-height:1.18; font-weight:800; }
+p{ margin:0; }
+button,input,textarea,select{ font-family:inherit; font-size:inherit; }
+section{ scroll-margin-top:calc(var(--nav-h) + 10px); }
+.container{ width:100%; max-width:var(--container); margin:0 auto; padding:0 24px; }
+.eyebrow{ font-weight:700; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--blue); display:inline-flex; align-items:center; gap:8px; }
+.eyebrow::before{ content:''; width:8px; height:8px; border-radius:2px; background:var(--gold); display:inline-block; }
+:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
+@media (prefers-reduced-motion: reduce){ *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; } }
+.reveal{ opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease; }
+.reveal.is-visible{ opacity:1; transform:translateY(0); }
+.reveal-stagger.is-visible > *{ transition-delay:calc(var(--i,0) * 70ms); }
+
+/* NAV */
+.nav{ position:fixed; top:0; left:0; right:0; z-index:1000; height:var(--nav-h); display:flex; align-items:center; background:rgba(255,255,255,.94); backdrop-filter:blur(10px); border-bottom:1px solid transparent; transition:box-shadow .25s ease, border-color .25s ease; }
+.nav.scrolled{ box-shadow:0 4px 20px rgba(20,30,50,.06); border-color:var(--border); }
+.nav-inner{ width:100%; max-width:var(--container); margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
+.brand img{ height:42px; width:auto; }
+.nav-links{ display:flex; align-items:center; gap:32px; }
+.nav-links a{ font-size:14.5px; font-weight:600; color:var(--text-soft); position:relative; padding:6px 0; transition:color .2s ease; }
+.nav-links a::after{ content:''; position:absolute; left:0; bottom:0; height:2px; width:0; background:var(--gold); transition:width .25s ease; }
+.nav-links a:hover{ color:var(--text); } .nav-links a:hover::after{ width:100%; }
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:9px; padding:13px 24px; border-radius:var(--radius-sm); font-size:14.5px; font-weight:700; cursor:pointer; border:1.5px solid transparent; transition:transform .18s ease, background .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease; white-space:nowrap; }
+.btn-primary{ background:var(--blue); color:#fff; box-shadow:0 6px 16px rgba(27,78,216,.22); }
+.btn-primary:hover{ background:var(--blue-dark); transform:translateY(-2px); }
+.btn-outline{ border-color:var(--border); color:var(--text); background:#fff; }
+.btn-outline:hover{ border-color:var(--blue); color:var(--blue); transform:translateY(-2px); }
+.btn-white{ background:#fff; color:var(--blue-dark); }
+.btn-white:hover{ background:#F2F6FF; transform:translateY(-2px); }
+.hamburger{ display:none; width:30px; height:22px; position:relative; background:none; border:none; cursor:pointer; padding:0; z-index:1001; }
+.hamburger span{ position:absolute; left:0; right:0; height:2.2px; background:var(--text); border-radius:2px; transition:transform .3s ease, opacity .3s ease, top .3s ease; }
+.hamburger span:nth-child(1){ top:0; } .hamburger span:nth-child(2){ top:10px; } .hamburger span:nth-child(3){ top:20px; }
+.hamburger.open span:nth-child(1){ top:10px; transform:rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; }
+.hamburger.open span:nth-child(3){ top:10px; transform:rotate(-45deg); }
+.mobile-panel{ position:fixed; inset:0; z-index:999; background:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:28px; transform:translateY(-100%); transition:transform .4s cubic-bezier(.4,0,.2,1); }
+.mobile-panel.open{ transform:translateY(0); }
+.mobile-panel a.mobile-link{ font-family:var(--font-head); font-size:23px; font-weight:800; color:var(--text); }
+body.menu-open{ overflow:hidden; }
+@media (max-width:900px){ .nav-links{ display:none; } .nav-cta.desktop-only{ display:none; } .hamburger{ display:block; } }
+
+/* HERO */
+.hero{ padding:calc(var(--nav-h) + 44px) 0 64px; background:var(--bg); }
+.hero-inner{ display:grid; grid-template-columns:1fr .9fr; gap:48px; align-items:center; }
+.hero h1{ margin-top:16px; font-size:clamp(2rem, 1.5rem + 2.2vw, 3.1rem); letter-spacing:-.02em; }
+.hero h1 span{ color:var(--blue); }
+.hero-sub{ margin-top:16px; max-width:44ch; font-size:16px; line-height:1.65; color:var(--text-soft); }
+.hero-actions{ display:flex; flex-wrap:wrap; gap:14px; margin-top:28px; }
+.hero-visual{ position:relative; }
+.hero-photo{ border-radius:18px; overflow:hidden; box-shadow:0 22px 54px -20px rgba(20,30,50,.28); aspect-ratio:4/4.4; }
+.hero-photo img{ width:100%; height:100%; object-fit:cover; }
+.hero-badge{ position:absolute; right:-14px; bottom:-20px; z-index:2; background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; box-shadow:0 16px 36px -14px rgba(20,30,50,.22); display:flex; align-items:center; gap:12px; max-width:230px; }
+.hero-badge .dot{ width:36px; height:36px; border-radius:9px; background:var(--gold-tint); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.hero-badge .dot svg{ width:17px; height:17px; color:var(--gold-dark); }
+.hero-badge b{ display:block; font-family:var(--font-head); font-size:13px; color:var(--text); font-weight:800; }
+.hero-badge small{ font-size:11px; color:var(--text-faint); }
+@media (max-width:900px){ .hero-inner{ grid-template-columns:1fr; } .hero-visual{ order:-1; max-width:340px; margin:0 auto; width:100%; } .hero-badge{ right:8px; bottom:-16px; } }
+@media (max-width:520px){ .hero{ padding-top:calc(var(--nav-h) + 28px); } .hero-actions .btn{ width:100%; } }
+
+/* STATS STRIP */
+.stats-band{ background:var(--bg-soft); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); }
+.stat-cell{ padding:30px 20px; text-align:center; border-left:1px solid var(--border); }
+.stat-cell:first-child{ border-left:none; }
+.stat-num{ font-family:var(--font-head); font-weight:800; font-size:clamp(1.5rem,1vw + 1.3rem,2rem); color:var(--blue); }
+.stat-num.gold{ color:var(--gold-dark); }
+.stat-label{ font-size:11.5px; font-weight:600; color:var(--text-soft); margin-top:6px; }
+@media (max-width:700px){ .stats-grid{ grid-template-columns:1fr 1fr; } .stat-cell{ border-left:none; border-top:1px solid var(--border); } .stat-cell:nth-child(odd){ border-right:1px solid var(--border); } }
+
+/* SECTION HEAD */
+.sec-head{ max-width:600px; margin-bottom:40px; }
+.sec-head .eyebrow{ margin-bottom:12px; }
+.sec-head h2{ font-size:clamp(1.5rem, 1.2rem + 1.1vw, 2.1rem); letter-spacing:-.01em; }
+.sec-head p{ margin-top:12px; font-size:15px; line-height:1.65; color:var(--text-soft); }
+.sec-pad{ padding:80px 0; }
+@media (max-width:640px){ .sec-pad{ padding:56px 0; } .sec-head{ margin-bottom:32px; } }
+
+/* SOLUTIONS - 3 core products */
+.solutions-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.sol-card{ background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:30px 26px; transition:border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+.sol-card:hover{ border-color:transparent; box-shadow:0 20px 40px -18px rgba(20,30,50,.16); transform:translateY(-4px); }
+.sol-num{ font-family:var(--font-head); font-weight:800; font-size:13px; color:var(--text-faint); }
+.sol-icon{ width:48px; height:48px; border-radius:11px; background:var(--blue-tint); display:flex; align-items:center; justify-content:center; color:var(--blue); margin:16px 0 18px; transition:background .2s ease, color .2s ease; }
+.sol-card:hover .sol-icon{ background:var(--gold); color:#fff; }
+.sol-icon svg{ width:22px; height:22px; }
+.sol-card h3{ font-size:17px; margin-bottom:8px; }
+.sol-card p{ font-size:14px; line-height:1.6; color:var(--text-soft); }
+.sol-card .learn{ display:inline-block; margin-top:16px; font-size:13px; font-weight:700; color:var(--blue); }
+@media (max-width:900px){ .solutions-grid{ grid-template-columns:1fr; } }
+
+/* ABOUT / TRUST */
+.about-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:48px; align-items:center; }
+.about-lead{ font-size:16.5px; line-height:1.65; color:var(--text); }
+.about-lead strong{ color:var(--blue-dark); }
+.trust-list{ display:grid; gap:12px; margin-top:22px; }
+.trust-item{ display:flex; align-items:center; gap:12px; font-size:14.5px; color:var(--text); font-weight:600; }
+.trust-item svg{ width:18px; height:18px; color:var(--blue); flex-shrink:0; }
+.about-photo{ border-radius:var(--radius); overflow:hidden; box-shadow:0 18px 40px -18px rgba(20,30,50,.22); aspect-ratio:4/4.6; }
+.about-photo img{ width:100%; height:100%; object-fit:cover; }
+@media (max-width:900px){ .about-grid{ grid-template-columns:1fr; gap:30px; } .about-photo{ order:-1; max-width:320px; margin:0 auto; width:100%; } }
+
+/* INDUSTRIES */
+.industries{ background:var(--bg-soft); }
+.ind-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.ind-card{ position:relative; border-radius:var(--radius); overflow:hidden; aspect-ratio:4/5; isolation:isolate; box-shadow:0 12px 30px -18px rgba(20,30,50,.22); }
+.ind-card img{ width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+.ind-card:hover img{ transform:scale(1.05); }
+.ind-card::after{ content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(15,20,30,.86) 8%, rgba(15,20,30,.1) 52%, transparent 75%); }
+.ind-label{ position:absolute; left:18px; right:18px; bottom:18px; z-index:2; }
+.ind-label h3{ color:#fff; font-size:17px; }
+@media (max-width:900px){ .ind-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:600px){ .ind-grid{ grid-template-columns:1fr; } .ind-card{ aspect-ratio:16/10; } }
+
+/* CONTACT */
+.contact-wrap{ display:grid; grid-template-columns:.85fr 1.15fr; gap:44px; }
+.contact-info{ display:grid; gap:16px; align-content:start; }
+.info-card{ background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:20px 22px; display:flex; gap:14px; align-items:flex-start; }
+.info-card svg{ width:20px; height:20px; color:var(--blue); flex-shrink:0; margin-top:2px; }
+.info-card b{ display:block; font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--text-faint); margin-bottom:4px; }
+.info-card a, .info-card span{ font-size:14.5px; color:var(--text); font-weight:600; line-height:1.5; }
+.info-card a:hover{ color:var(--blue); }
+
+.contact-form{ background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:32px; }
+.form-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.field{ margin-bottom:16px; }
+.field label{ display:block; font-size:13px; font-weight:700; color:var(--text); margin-bottom:7px; }
+.field input, .field textarea{ width:100%; padding:12px 14px; border:1.5px solid var(--border); border-radius:var(--radius-sm); background:var(--bg-soft); color:var(--text); transition:border-color .2s ease, background .2s ease; }
+.field input:focus, .field textarea:focus{ outline:none; border-color:var(--blue); background:#fff; }
+.field textarea{ resize:vertical; min-height:96px; }
+.form-note{ font-size:12.5px; color:var(--text-faint); margin-top:12px; }
+@media (max-width:900px){ .contact-wrap{ grid-template-columns:1fr; } }
+@media (max-width:520px){ .form-row{ grid-template-columns:1fr; } .contact-form{ padding:24px 20px; } }
+
+/* CTA */
+.cta-band{ background:var(--blue); padding:56px 0; }
+.cta-inner{ display:flex; align-items:center; justify-content:space-between; gap:30px; flex-wrap:wrap; }
+.cta-inner h2{ color:#fff; font-size:clamp(1.35rem,1vw + 1.2rem,1.9rem); max-width:24ch; }
+.cta-inner p{ color:rgba(255,255,255,.85); margin-top:6px; font-size:14.5px; }
+
+/* FOOTER */
+footer{ background:var(--bg-soft-2); border-top:1px solid var(--border); padding:52px 0 24px; }
+.foot-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:36px; padding-bottom:34px; }
+.foot-brand img{ height:38px; }
+.foot-brand p{ color:var(--text-soft); font-size:13.5px; line-height:1.6; margin-top:14px; max-width:30ch; }
+.foot-col h5{ font-size:11.5px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; color:var(--text-faint); margin-bottom:14px; }
+.foot-col ul{ display:grid; gap:10px; }
+.foot-col a{ font-size:13.5px; color:var(--text-soft); transition:color .2s ease; }
+.foot-col a:hover{ color:var(--blue); }
+.foot-social{ display:flex; gap:9px; margin-top:16px; }
+.foot-social a{ width:34px; height:34px; border:1px solid var(--border); background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--text-soft); transition:border-color .2s ease, color .2s ease; }
+.foot-social a:hover{ border-color:var(--blue); color:var(--blue); }
+.foot-social svg{ width:14px; height:14px; }
+.foot-bottom{ display:flex; justify-content:space-between; align-items:center; padding-top:20px; border-top:1px solid var(--border); flex-wrap:wrap; gap:8px; }
+.foot-bottom p{ font-size:12px; color:var(--text-faint); }
+@media (max-width:700px){ .foot-grid{ grid-template-columns:1fr 1fr; row-gap:28px; } }
+@media (max-width:480px){ .foot-grid{ grid-template-columns:1fr; } .cta-inner{ flex-direction:column; align-items:flex-start; } }
+
+/* WHATSAPP FLOAT */
+.whatsapp-float{
+  position:fixed; right:22px; bottom:22px; z-index:1200;
+  width:58px; height:58px; border-radius:50%;
+  background:#25D366; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 10px 26px -6px rgba(37,211,102,.55), 0 2px 8px rgba(0,0,0,.15);
+  transition:transform .2s ease, box-shadow .2s ease;
+  animation:wa-pop .5s ease .6s both;
+}
+.whatsapp-float:hover{ transform:translateY(-3px) scale(1.05); box-shadow:0 14px 32px -6px rgba(37,211,102,.6), 0 3px 10px rgba(0,0,0,.18); }
+.whatsapp-float svg{ width:30px; height:30px; }
+.whatsapp-float .wa-ping{
+  position:absolute; inset:0; border-radius:50%; background:#25D366; opacity:.55;
+  animation:wa-ring 2.2s ease-out infinite;
+}
+@keyframes wa-ring{ 0%{ transform:scale(1); opacity:.5; } 100%{ transform:scale(1.7); opacity:0; } }
+@keyframes wa-pop{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+@media (max-width:520px){ .whatsapp-float{ right:16px; bottom:16px; width:52px; height:52px; } .whatsapp-float svg{ width:27px; height:27px; } }
+@media (prefers-reduced-motion: reduce){ .whatsapp-float{ animation:none; } .wa-ping{ display:none; } }
+
+</style>
+</head>
+<body>
+
+<nav class="nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="#top" class="brand"><img src="./assets/Technoksha_Logo_White_Back2-110x78.jpg" alt="Technoksha logo" width="146" height="42"></a>
+    <ul class="nav-links">
+      <li><a href="#solutions">Solutions</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#industries">Industries</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div style="display:flex; align-items:center; gap:22px;">
+      <a href="#contact" class="btn btn-primary nav-cta desktop-only">Get a Free Consultation</a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-panel" id="mobilePanel">
+  <a href="#solutions" class="mobile-link">Solutions</a>
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#industries" class="mobile-link">Industries</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+  <a href="#contact" class="btn btn-primary" style="margin-top:6px;">Get a Free Consultation</a>
+</div>
+
+<header class="hero" id="top">
+  <div class="container hero-inner">
+    <div class="reveal">
+      <span class="eyebrow">Engineering Technology Partner · Bengaluru</span>
+      <h1>Smarter tools for <span>modern manufacturing.</span></h1>
+      <p class="hero-sub">ZWCAD solutions, Hexagon Manufacturing Intelligence and CAD/CAM reverse engineering — from a GST-verified, Bengaluru-based team.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Get a Free Consultation</a>
+        <a href="tel:+917996279164" class="btn btn-outline">Call +91 93808 25216</a>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="hero-photo"><img src="./assets/aerospace.jpg" alt="Precision engineering at Technoksha" fetchpriority="high"></div>
+      <div class="hero-badge">
+        <div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div><b>GST Verified</b><small>Registered business</small></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="stats-band">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-cell reveal"><div class="stat-num">5+</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat-cell reveal"><div class="stat-num gold">5.0★</div><div class="stat-label">Client Rating</div></div>
+      <div class="stat-cell reveal"><div class="stat-num">GST</div><div class="stat-label">Verified Business</div></div>
+      <div class="stat-cell reveal"><div class="stat-num gold">3</div><div class="stat-label">Core Industries Served</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="solutions" class="sec-pad">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="eyebrow">What We Do</span>
+      <h2>Three ways we move your workflow forward.</h2>
+    </div>
+    <div class="solutions-grid reveal-stagger reveal">
+      <div class="sol-card" style="--i:0">
+        <span class="sol-num">01</span>
+        <div class="sol-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg></div>
+        <h3>Advanced ZWCAD Solutions</h3>
+        <p>Unlock the power of ZWCAD for seamless, cost-effective design and engineering workflows.</p>
+        <a href="#contact" class="learn">Learn more →</a>
+      </div>
+      <div class="sol-card" style="--i:1">
+        <span class="sol-num">02</span>
+        <div class="sol-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg></div>
+        <h3>Hexagon Manufacturing Intelligence</h3>
+        <p>Integrate Hexagon's technologies for smarter, data-driven manufacturing processes.</p>
+        <a href="#contact" class="learn">Learn more →</a>
+      </div>
+      <div class="sol-card" style="--i:2">
+        <span class="sol-num">03</span>
+        <div class="sol-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg></div>
+        <h3>CAD/CAM Reverse Engineering</h3>
+        <p>Revitalize your manufacturing with precise, advanced reverse engineering techniques.</p>
+        <a href="#contact" class="learn">Learn more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="sec-pad" style="background:var(--bg-soft);">
+  <div class="container about-grid">
+    <div class="reveal">
+      <span class="eyebrow">Who We Are</span>
+      <h2 style="margin-top:12px; font-size:clamp(1.5rem,1.2rem + 1.1vw,2.1rem); letter-spacing:-.01em;">A real, verified engineering partner — not a faceless vendor.</h2>
+      <p class="about-lead" style="margin-top:16px;"><strong>Technoksha</strong> is a Bengaluru-based engineering technology business helping manufacturers adopt ZWCAD, Hexagon's manufacturing intelligence tools, and reverse-engineering services — with the same address, phone and email everywhere we're listed.</p>
+      <div class="trust-list">
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> GST-registered business (verifiable GSTIN)</div>
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> 5+ years trading history on IndiaMART</div>
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> 5.0★ buyer rating</div>
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Based at Rajajinagar, Bengaluru</div>
+      </div>
+    </div>
+    <div class="about-photo reveal"><img src="./assets/automotive.jpg" alt="Technoksha engineering work" loading="lazy"></div>
+  </div>
+</section>
+
+<section id="industries" class="sec-pad industries">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Industries We Serve</span>
+      <h2>Built for teams where tolerances matter.</h2>
+    </div>
+    <div class="ind-grid reveal-stagger reveal">
+      <div class="ind-card" style="--i:0"><img src="./assets/aerospace.jpg" alt="Aerospace and defense engineering" loading="lazy"><div class="ind-label"><h3>Aerospace &amp; Defense</h3></div></div>
+      <div class="ind-card" style="--i:1"><img src="./assets/oil-1.jpg" alt="Oil and gas industry engineering" loading="lazy"><div class="ind-label"><h3>Oil &amp; Gas</h3></div></div>
+      <div class="ind-card" style="--i:2"><img src="./assets/automotive.jpg" alt="Automotive industry engineering" loading="lazy"><div class="ind-label"><h3>Automotive</h3></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="sec-pad">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Get in Touch</span>
+      <h2>Talk to our engineering team today.</h2>
+      <p>Fill in the form and we'll get back to you — or call/email us directly using the details below.</p>
+    </div>
+    <div class="contact-wrap">
+      <div class="contact-info reveal">
+        <div class="info-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div><b>Address</b><a href="https://maps.google.com/?q=No.+1579+6th+Main,+E+Block,+2nd+Stage+Rajajinagar,+Bengaluru+560010" target="_blank" rel="noopener">No. 1579, 6th Main, E Block,<br>2nd Stage Rajajinagar,<br>Bengaluru – 560010</a></div>
+        </div>
+        <div class="info-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <div><b>Call Us</b><a href="tel:+919380825216">+91 93808 25216</a></div>
+        </div>
+        <div class="info-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+          <div><b>Email</b><a href="mailto:info@technoksha.com">info@technoksha.com</a></div>
+        </div>
+        <div class="info-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <div><b>Hours</b><span>Mon–Sat, 9:30 AM – 6:30 PM IST</span></div>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="a9275777-291d-407d-b27d-04fd2932de40">
+        <input type="hidden" name="subject" value="New inquiry from technoksha.com">
+        <input type="hidden" name="from_name" value="Technoksha Website">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+        <div class="form-row">
+          <div class="field"><label for="fname">Full Name *</label><input id="fname" type="text" name="Name" required></div>
+          <div class="field"><label for="fcompany">Company</label><input id="fcompany" type="text" name="Company"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="fphone">Phone *</label><input id="fphone" type="tel" name="Phone" required maxlength="13"></div>
+          <div class="field"><label for="femail">Email *</label><input id="femail" type="email" name="Email" required></div>
+        </div>
+        <div class="field"><label for="fmsg">What are you looking for? *</label><textarea id="fmsg" name="Message" required placeholder="e.g. ZWCAD licensing for 5 seats, Hexagon MI demo, reverse engineering quote..."></textarea></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Send Inquiry</button>
+        <p class="form-note">No spam. Your details go straight to our team — we usually reply within one business day.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container cta-inner">
+    <div class="reveal"><h2>Ready to upgrade your engineering workflow?</h2><p>Get a free consultation from our team today.</p></div>
+    <a href="#contact" class="btn btn-white reveal">Talk to Us</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="./assets/Technoksha_Logo_White_Back2-110x78.jpg" alt="Technoksha logo" loading="lazy">
+        <p>GST-verified engineering technology partner based in Bengaluru.</p>
+        <div class="foot-social">
+          <a href="https://www.linkedin.com/company/technoksha" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95C20.9 8.75 22 11 22 14.5V21h-4v-5.7c0-1.36-.02-3.1-1.9-3.1-1.9 0-2.2 1.48-2.2 3v5.8H9z"/></svg></a>
+          <a href="https://www.instagram.com/technoksha/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="https://x.com/Technoksha" aria-label="X" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3l7.5 9.5L3.4 21H6l5.8-6.6L16.5 21H21l-8-10.1L20.3 3h-2.6l-5.2 6-4.5-6z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <ul><li><a href="#about">About</a></li><li><a href="#solutions">Solutions</a></li><li><a href="#industries">Industries</a></li></ul>
+      </div>
+      <div class="foot-col">
+        <h5>Get in Touch</h5>
+        <ul><li><a href="tel:+919380825216">+91 93808 25216</a></li><li><a href="mailto:info@technoksha.com">info@technoksha.com</a></li><li><a href="#contact">Contact Form</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© <span id="year"></span> Technoksha. All rights reserved. · GSTIN 29HEMPR4365Q1Z6</p>
+      <p>Bengaluru, Karnataka, India</p>
+    </div>
+  </div>
+</footer>
+
+<a class="whatsapp-float" href="https://wa.me/919380825216?text=Hi%20Technoksha%2C%20I%27d%20like%20to%20know%20more%20about%20your%20solutions." target="_blank" rel="noopener" aria-label="Chat with Technoksha on WhatsApp">
+  <span class="wa-ping"></span>
+  <svg viewBox="0 0 32 32" fill="#fff"><path d="M16.01 3C9.38 3 4 8.38 4 15.01c0 2.39.7 4.61 1.9 6.48L4 29l7.68-1.86a11.9 11.9 0 004.33.81h.01c6.63 0 12.01-5.38 12.01-12.01C28.03 8.38 22.65 3 16.01 3zm0 21.8h-.01a9.8 9.8 0 01-4.99-1.37l-.36-.21-4.56 1.1 1.22-4.44-.24-.46a9.79 9.79 0 01-1.5-5.22c0-5.42 4.41-9.83 9.85-9.83 2.63 0 5.11 1.03 6.97 2.89a9.77 9.77 0 012.88 6.95c0 5.42-4.41 9.59-9.26 9.59zm5.4-7.34c-.29-.15-1.75-.87-2.02-.96-.27-.1-.47-.15-.67.15-.2.29-.77.96-.94 1.15-.17.2-.35.22-.64.07-.29-.15-1.23-.46-2.34-1.46-.86-.78-1.45-1.74-1.62-2.03-.17-.29-.02-.45.13-.6.13-.13.29-.35.44-.52.15-.17.2-.29.29-.49.1-.2.05-.37-.02-.52-.07-.15-.67-1.64-.92-2.24-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.29-1.04 1.02-1.04 2.5s1.07 2.9 1.22 3.1c.15.2 2.1 3.29 5.14 4.5.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.56-.35z"/></svg>
+</a>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+const hamburger = document.getElementById('hamburgerBtn');
+const panel = document.getElementById('mobilePanel');
+hamburger.addEventListener('click', () => {
+  const open = panel.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', open);
+  document.body.classList.toggle('menu-open', open);
+});
+panel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  panel.classList.remove('open'); hamburger.classList.remove('open'); document.body.classList.remove('menu-open');
+}));
+const nav = document.getElementById('siteNav');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 30); }, { passive:true });
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+}, { threshold: 0.15 });
+revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>

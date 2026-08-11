@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You — Technoksha | Engineering Technology Partner</title>
+<meta name="description" content="Thank you for contacting Technoksha. We will get back to you shortly.">
+<link rel="icon" type="image/png" href="./assets/cropped-favicon-270x270.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --text:#1B2430; --text-soft:#59626F; --text-faint:#8A93A1;
+  --bg:#FFFFFF; --bg-soft:#F6F8FB; --bg-soft-2:#EEF1F5; --border:#E5E9EE;
+  --blue:#1B4ED8; --blue-dark:#153FB0; --blue-tint:#EAF0FE;
+  --gold:#C8860D; --gold-dark:#A66F09; --gold-tint:#FBF2E1;
+  --font-head:'Manrope', sans-serif; --font-body:'Inter', sans-serif;
+  --container:1180px; --radius:14px; --radius-sm:9px; --nav-h:76px;
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{ margin:0; font-family:var(--font-body); color:var(--text-soft); background:var(--bg); -webkit-font-smoothing:antialiased; overflow-x:hidden; display: flex; flex-direction: column; min-height: 100vh; }
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; margin:0; padding:0; }
+h1,h2,h3,h4{ font-family:var(--font-head); color:var(--text); margin:0; line-height:1.18; font-weight:800; }
+p{ margin:0; }
+.container{ width:100%; max-width:var(--container); margin:0 auto; padding:0 24px; }
+:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
+
+/* NAV */
+.nav{ position:fixed; top:0; left:0; right:0; z-index:1000; height:var(--nav-h); display:flex; align-items:center; background:rgba(255,255,255,.94); backdrop-filter:blur(10px); border-bottom:1px solid transparent; transition:box-shadow .25s ease, border-color .25s ease; }
+.nav.scrolled{ box-shadow:0 4px 20px rgba(20,30,50,.06); border-color:var(--border); }
+.nav-inner{ width:100%; max-width:var(--container); margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
+.brand img{ height:42px; width:auto; }
+.nav-links{ display:flex; align-items:center; gap:32px; }
+.nav-links a{ font-size:14.5px; font-weight:600; color:var(--text-soft); position:relative; padding:6px 0; transition:color .2s ease; }
+.nav-links a::after{ content:''; position:absolute; left:0; bottom:0; height:2px; width:0; background:var(--gold); transition:width .25s ease; }
+.nav-links a:hover{ color:var(--text); } .nav-links a:hover::after{ width:100%; }
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:9px; padding:13px 24px; border-radius:var(--radius-sm); font-size:14.5px; font-weight:700; cursor:pointer; border:1.5px solid transparent; transition:transform .18s ease, background .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease; white-space:nowrap; }
+.btn-primary{ background:var(--blue); color:#fff; box-shadow:0 6px 16px rgba(27,78,216,.22); }
+.btn-primary:hover{ background:var(--blue-dark); transform:translateY(-2px); }
+.hamburger{ display:none; width:30px; height:22px; position:relative; background:none; border:none; cursor:pointer; padding:0; z-index:1001; }
+.hamburger span{ position:absolute; left:0; right:0; height:2.2px; background:var(--text); border-radius:2px; transition:transform .3s ease, opacity .3s ease, top .3s ease; }
+.hamburger span:nth-child(1){ top:0; } .hamburger span:nth-child(2){ top:10px; } .hamburger span:nth-child(3){ top:20px; }
+.hamburger.open span:nth-child(1){ top:10px; transform:rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; }
+.hamburger.open span:nth-child(3){ top:10px; transform:rotate(-45deg); }
+.mobile-panel{ position:fixed; inset:0; z-index:999; background:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:28px; transform:translateY(-100%); transition:transform .4s cubic-bezier(.4,0,.2,1); }
+.mobile-panel.open{ transform:translateY(0); }
+.mobile-panel a.mobile-link{ font-family:var(--font-head); font-size:23px; font-weight:800; color:var(--text); }
+@media (max-width:900px){ .nav-links{ display:none; } .nav-cta.desktop-only{ display:none; } .hamburger{ display:block; } }
+
+/* THANK YOU SECTION */
+.ty-wrap{ flex-grow:1; display:flex; align-items:center; justify-content:center; padding:calc(var(--nav-h) + 60px) 24px 80px; background:var(--bg-soft); position:relative; overflow:hidden; }
+.ty-wrap::before{ content:''; position:absolute; top:-200px; right:-200px; width:600px; height:600px; background:radial-gradient(circle, var(--blue-tint) 0%, transparent 70%); opacity:0.6; z-index:0; }
+.ty-card{ background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:56px 48px; max-width:540px; width:100%; text-align:center; box-shadow:0 24px 64px -20px rgba(20,30,50,.15); position:relative; z-index:1; opacity:0; transform:translateY(24px); animation:slideUp .6s cubic-bezier(.16,1,.3,1) forwards; }
+@keyframes slideUp{ to{ opacity:1; transform:translateY(0); } }
+
+.ty-icon{ width:88px; height:88px; border-radius:50%; background:var(--blue-tint); display:flex; align-items:center; justify-content:center; margin:0 auto 32px; color:var(--blue); position:relative; }
+.ty-icon::after{ content:''; position:absolute; inset:-12px; border:2px solid var(--blue-tint); border-radius:50%; opacity:0; animation:pulse 2s cubic-bezier(.16,1,.3,1) infinite 1s; }
+@keyframes pulse{ 0%{ transform:scale(.8); opacity:0; } 50%{ opacity:1; } 100%{ transform:scale(1.2); opacity:0; } }
+
+.ty-icon svg{ width:42px; height:42px; stroke-dasharray:100; stroke-dashoffset:100; animation:drawCheck .8s ease-out .3s forwards; }
+@keyframes drawCheck{ to{ stroke-dashoffset:0; } }
+
+.ty-card h1{ font-size:clamp(1.7rem, 2vw + 1.2rem, 2.3rem); letter-spacing:-.01em; margin-bottom:16px; color:var(--text); }
+.ty-card p{ font-size:15.5px; line-height:1.65; color:var(--text-soft); margin-bottom:36px; }
+.ty-card .btn{ width:100%; max-width:240px; }
+
+/* FOOTER */
+footer{ background:var(--bg-soft-2); border-top:1px solid var(--border); padding:52px 0 24px; margin-top:auto; }
+.foot-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:36px; padding-bottom:34px; }
+.foot-brand img{ height:38px; }
+.foot-brand p{ color:var(--text-soft); font-size:13.5px; line-height:1.6; margin-top:14px; max-width:30ch; }
+.foot-col h5{ font-size:11.5px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; color:var(--text-faint); margin-bottom:14px; }
+.foot-col ul{ display:grid; gap:10px; }
+.foot-col a{ font-size:13.5px; color:var(--text-soft); transition:color .2s ease; }
+.foot-col a:hover{ color:var(--blue); }
+.foot-bottom{ display:flex; justify-content:space-between; align-items:center; padding-top:20px; border-top:1px solid var(--border); flex-wrap:wrap; gap:8px; }
+.foot-bottom p{ font-size:12px; color:var(--text-faint); }
+
+@media (max-width:700px){ .foot-grid{ grid-template-columns:1fr 1fr; row-gap:28px; } }
+@media (max-width:520px){ .ty-card{ padding:40px 24px; } }
+@media (max-width:480px){ .foot-grid{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand"><img src="./assets/Technoksha_Logo_White_Back2-110x78.jpg" alt="Technoksha logo" width="146" height="42"></a>
+    <ul class="nav-links">
+      <li><a href="index.html#solutions">Solutions</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#industries">Industries</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div style="display:flex; align-items:center; gap:22px;">
+      <a href="index.html" class="btn btn-primary nav-cta desktop-only">Back to Home</a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-panel" id="mobilePanel">
+  <a href="index.html#solutions" class="mobile-link">Solutions</a>
+  <a href="index.html#about" class="mobile-link">About</a>
+  <a href="index.html#industries" class="mobile-link">Industries</a>
+  <a href="index.html#contact" class="mobile-link">Contact</a>
+  <a href="index.html" class="btn btn-primary" style="margin-top:6px;">Back to Home</a>
+</div>
+
+<main class="ty-wrap">
+  <div class="ty-card">
+    <div class="ty-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+    <h1>Message Received</h1>
+    <p>Thank you for reaching out to Technoksha. Your inquiry has been routed to our engineering team, and one of our technical specialists will evaluate your details and contact you within 24 business hours.</p>
+    <a href="./technoksha (4)(email added).html" class="btn btn-primary">Return to Homepage</a>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="./assets/Technoksha_Logo_White_Back2-110x78.jpg" alt="Technoksha logo" loading="lazy">
+        <p>GST-verified engineering technology partner based in Bengaluru.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <ul><li><a href="index.html#about">About</a></li><li><a href="index.html#solutions">Solutions</a></li><li><a href="index.html#industries">Industries</a></li></ul>
+      </div>
+      <div class="foot-col">
+        <h5>Get in Touch</h5>
+        <ul><li><a href="tel:+919380825216">+91 93808 25216</a></li><li><a href="mailto:info@technoksha.com">info@technoksha.com</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© <span id="year"></span> Technoksha. All rights reserved. · GSTIN 29HEMPR4365Q1Z6</p>
+      <p>Bengaluru, Karnataka, India</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+const hamburger = document.getElementById('hamburgerBtn');
+const panel = document.getElementById('mobilePanel');
+hamburger.addEventListener('click', () => {
+  const open = panel.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', open);
+  document.body.classList.toggle('menu-open', open);
+});
+const nav = document.getElementById('siteNav');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 30); }, { passive:true });
+</script>
+</body>
+</html>

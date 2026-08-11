@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technoksha — CAD, Manufacturing Intelligence &amp; Engineering Workstations | Bengaluru</title>
+<meta name="description" content="Technoksha is a Bengaluru-based, GST-verified engineering technology partner — multi-CAD training, Hexagon manufacturing intelligence, reverse engineering, rendering and high-performance HP/Lenovo workstations.">
+<link rel="icon" href="https://technoksha.in/wp-content/uploads/2025/03/Technoksha_Logo_White_Back2-110x78.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ================================================================
+   TOKENS — cool paper white, graphite ink, petrol + brass accents.
+   Deliberately not navy/purple, not warm-cream-serif, not near-black-neon.
+   ================================================================ */
+:root{
+  --paper:#FFFFFF;
+  --surface:#F5F7F5;         /* faint cool green-gray, not cream */
+  --surface-2:#ECEFEA;
+  --line:#DFE3DD;
+  --line-soft:#EAEDE7;
+
+  --ink:#131715;             /* near-black with a green undertone */
+  --ink-soft:#4B534E;
+  --ink-faint:#84897F;
+
+  --petrol:#0C4A43;          /* primary — deep engineering teal */
+  --petrol-dark:#082F2A;
+  --petrol-tint:#E6F0EE;
+
+  --brass:#A9762F;           /* secondary — machined-brass accent, used sparingly */
+  --brass-dark:#7F591F;
+  --brass-tint:#F7EFDD;
+
+  --font-display:'Space Grotesk', sans-serif;
+  --font-body:'Inter', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+
+  --container:1220px;
+  --radius:14px;
+  --radius-sm:8px;
+  --nav-h:76px;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0; background:var(--paper); color:var(--ink-soft);
+  font-family:var(--font-body); -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; margin:0; padding:0; }
+h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-height:1.14; font-weight:600; letter-spacing:-.01em; }
+p{ margin:0; }
+button{ font-family:inherit; }
+section{ scroll-margin-top:calc(var(--nav-h) + 12px); }
+.container{ width:100%; max-width:var(--container); margin:0 auto; padding:0 28px; }
+
+:focus-visible{ outline:2px solid var(--petrol); outline-offset:3px; }
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+}
+
+.reveal{ opacity:0; transform:translateY(18px); transition:opacity .65s ease, transform .65s ease; }
+.reveal.is-visible{ opacity:1; transform:translateY(0); }
+.reveal-stagger.is-visible > *{ transition-delay:calc(var(--i,0) * 90ms); }
+
+/* small "drawing label" — mono, uppercase, evokes a spec/dimension callout */
+.tag{
+  font-family:var(--font-mono); font-weight:600; font-size:11.5px;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--petrol);
+  display:inline-flex; align-items:center; gap:8px;
+}
+.tag::before{ content:''; width:16px; height:1.5px; background:var(--brass); display:inline-block; }
+.tag.on-dark{ color:#8FD8CB; }
+.tag.on-dark::before{ background:#D9B876; }
+
+/* ================================================================
+   TITLE BLOCK — signature motif borrowed from an engineering drawing's
+   title block (company / GSTIN / scale / verified-by). Reused in the
+   hero and footer so the whole site reads as one drawing set.
+   ================================================================ */
+.title-block{
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--radius-sm);
+  font-family:var(--font-mono); font-size:12px; overflow:hidden;
+  box-shadow:0 22px 50px -24px rgba(12,30,27,.28);
+}
+.tb-row{ display:grid; grid-template-columns:112px 1fr; border-top:1px solid var(--line); }
+.tb-row:first-child{ border-top:none; }
+.tb-key{ padding:10px 12px; color:var(--ink-faint); background:var(--surface); border-right:1px solid var(--line); letter-spacing:.03em; }
+.tb-val{ padding:10px 12px; color:var(--ink); font-weight:600; }
+.tb-corner{ position:relative; }
+.tb-corner::before,.tb-corner::after{ content:''; position:absolute; width:14px; height:14px; border:1.5px solid var(--brass); opacity:.9; }
+.tb-corner::before{ top:-6px; left:-6px; border-right:none; border-bottom:none; }
+.tb-corner::after{ bottom:-6px; right:-6px; border-left:none; border-top:none; }
+
+/* ================================================================
+   NAV
+   ================================================================ */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:1000; height:var(--nav-h);
+  display:flex; align-items:center; background:rgba(255,255,255,.9); backdrop-filter:blur(12px);
+  border-bottom:1px solid transparent; transition:box-shadow .25s ease, border-color .25s ease;
+}
+.nav.scrolled{ box-shadow:0 4px 24px rgba(12,25,22,.06); border-color:var(--line); }
+.nav-inner{ width:100%; max-width:var(--container); margin:0 auto; padding:0 28px; display:flex; align-items:center; justify-content:space-between; }
+.brand{ display:flex; align-items:center; gap:11px; }
+.brand img{ height:42px; width:auto; }
+.brand-name{ font-family:var(--font-display); font-weight:700; font-size:15.5px; color:var(--ink); letter-spacing:-.01em; }
+.brand-name small{ display:block; font-family:var(--font-mono); font-weight:500; font-size:9.5px; letter-spacing:.08em; color:var(--ink-faint); text-transform:uppercase; }
+
+.nav-links{ display:flex; align-items:center; gap:34px; }
+.nav-links a{ font-size:14px; font-weight:600; color:var(--ink-soft); position:relative; padding:6px 0; transition:color .2s ease; }
+.nav-links a::after{ content:''; position:absolute; left:0; bottom:0; height:2px; width:0; background:var(--brass); transition:width .25s ease; }
+.nav-links a:hover{ color:var(--ink); }
+.nav-links a:hover::after{ width:100%; }
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:9px;
+  padding:13px 24px; border-radius:var(--radius-sm); font-size:14px; font-weight:700;
+  cursor:pointer; border:1.5px solid transparent; white-space:nowrap;
+  transition:transform .18s ease, background .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease;
+}
+.btn-primary{ background:var(--petrol); color:#fff; box-shadow:0 8px 20px -6px rgba(12,74,67,.45); }
+.btn-primary:hover{ background:var(--petrol-dark); transform:translateY(-2px); box-shadow:0 12px 26px -6px rgba(12,74,67,.5); }
+.btn-outline{ border-color:var(--line); color:var(--ink); background:#fff; }
+.btn-outline:hover{ border-color:var(--petrol); color:var(--petrol); transform:translateY(-2px); }
+.btn-brass{ background:var(--brass); color:#fff; box-shadow:0 8px 20px -6px rgba(169,118,47,.45); }
+.btn-brass:hover{ background:var(--brass-dark); transform:translateY(-2px); }
+.btn-white{ background:#fff; color:var(--petrol-dark); }
+.btn-white:hover{ background:#EFFAF7; transform:translateY(-2px); }
+.btn-block{ width:100%; }
+
+.hamburger{ display:none; width:30px; height:22px; position:relative; background:none; border:none; cursor:pointer; padding:0; z-index:1001; }
+.hamburger span{ position:absolute; left:0; right:0; height:2.2px; background:var(--ink); border-radius:2px; transition:transform .3s ease, opacity .3s ease, top .3s ease; }
+.hamburger span:nth-child(1){ top:0; }
+.hamburger span:nth-child(2){ top:10px; }
+.hamburger span:nth-child(3){ top:20px; }
+.hamburger.open span:nth-child(1){ top:10px; transform:rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; }
+.hamburger.open span:nth-child(3){ top:10px; transform:rotate(-45deg); }
+
+.mobile-panel{
+  position:fixed; inset:0; z-index:999; background:#fff;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:28px;
+  transform:translateY(-100%); transition:transform .4s cubic-bezier(.4,0,.2,1);
+}
+.mobile-panel.open{ transform:translateY(0); }
+.mobile-panel a.mobile-link{ font-family:var(--font-display); font-size:23px; font-weight:600; color:var(--ink); }
+body.menu-open{ overflow:hidden; }
+
+@media (max-width:940px){
+  .nav-links{ display:none; }
+  .nav-cta.desktop-only{ display:none; }
+  .hamburger{ display:block; }
+}
+
+/* ================================================================
+   HERO
+   ================================================================ */
+.hero{ padding:calc(var(--nav-h) + 52px) 0 80px; background:var(--paper); position:relative; }
+.hero-inner{ display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center; }
+.hero h1{ margin-top:18px; font-size:clamp(2.15rem, 1.5rem + 2.7vw, 3.5rem); }
+.hero h1 em{ font-style:normal; color:var(--petrol); }
+.hero-sub{ margin-top:20px; max-width:50ch; font-size:16.5px; line-height:1.7; color:var(--ink-soft); }
+.hero-actions{ display:flex; flex-wrap:wrap; gap:14px; margin-top:32px; }
+
+.hero-visual{ position:relative; }
+.hero-photo{ border-radius:18px; overflow:hidden; box-shadow:0 26px 60px -22px rgba(12,25,22,.32); aspect-ratio:4/4.3; position:relative; }
+.hero-photo img{ width:100%; height:100%; object-fit:cover; }
+.hero-photo::after{ content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(8,20,18,.55), transparent 45%); }
+.hero-photo-cap{ position:absolute; left:18px; bottom:16px; z-index:2; color:#fff; font-family:var(--font-mono); font-size:11px; letter-spacing:.04em; opacity:.9; }
+
+.hero-tb{ position:absolute; right:-16px; bottom:-30px; width:250px; z-index:3; }
+@media (max-width:1180px){ .hero-tb{ right:8px; } }
+
+@media (max-width:940px){
+  .hero-inner{ grid-template-columns:1fr; }
+  .hero-visual{ order:-1; max-width:400px; margin:0 auto 34px; width:100%; }
+  .hero-tb{ position:static; width:100%; margin-top:16px; }
+}
+@media (max-width:520px){
+  .hero{ padding-top:calc(var(--nav-h) + 30px); }
+  .hero-actions .btn{ width:100%; }
+}
+
+/* trust strip */
+.strip{ background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:26px 0; }
+.strip-inner{ display:flex; align-items:center; gap:22px; flex-wrap:wrap; justify-content:space-between; }
+.strip-item{ display:flex; align-items:center; gap:10px; }
+.strip-item svg{ width:18px; height:18px; color:var(--petrol); flex-shrink:0; }
+.strip-item b{ font-family:var(--font-display); font-weight:700; font-size:14px; color:var(--ink); }
+.strip-item span{ font-size:12px; color:var(--ink-faint); display:block; }
+
+/* ================================================================
+   SECTION HEADERS
+   ================================================================ */
+.sec-head{ max-width:660px; margin-bottom:52px; }
+.sec-head .tag{ margin-bottom:14px; }
+.sec-head h2{ font-size:clamp(1.7rem, 1.3rem + 1.4vw, 2.4rem); }
+.sec-head p{ margin-top:14px; font-size:15.5px; line-height:1.7; color:var(--ink-soft); }
+.sec-pad{ padding:104px 0; }
+@media (max-width:640px){ .sec-pad{ padding:70px 0; } .sec-head{ margin-bottom:38px; } }
+
+/* ================================================================
+   ABOUT / FOUNDER NOTE
+   ================================================================ */
+.about-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:60px; align-items:start; }
+.about-lead{ font-size:18.5px; line-height:1.7; color:var(--ink); }
+.about-lead strong{ color:var(--petrol); }
+.about-more{ margin-top:16px; font-size:15px; line-height:1.75; color:var(--ink-soft); }
+.founder-note{
+  margin-top:28px; padding:22px 24px; background:var(--surface); border-left:3px solid var(--brass);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+}
+.founder-note p{ font-size:14.5px; line-height:1.7; color:var(--ink); font-style:italic; }
+.founder-note .who{ margin-top:12px; font-family:var(--font-mono); font-size:12px; font-style:normal; color:var(--ink-faint); }
+
+.vm-list{ display:grid; gap:16px; }
+.vm-card{ background:#fff; border:1px solid var(--line); border-left:3px solid var(--petrol); padding:22px 24px; border-radius:var(--radius-sm); }
+.vm-card.mission{ border-left-color:var(--brass); }
+.vm-card h4{ font-family:var(--font-mono); font-size:11.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--petrol); margin-bottom:9px; }
+.vm-card.mission h4{ color:var(--brass-dark); }
+.vm-card p{ font-size:14.5px; line-height:1.65; color:var(--ink-soft); }
+
+.verify-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+.verify-chip{
+  display:inline-flex; align-items:center; gap:7px; font-family:var(--font-mono); font-size:11.5px;
+  font-weight:600; color:var(--ink); background:#fff; border:1px solid var(--line); padding:7px 12px; border-radius:100px;
+}
+.verify-chip svg{ width:13px; height:13px; color:var(--petrol); }
+
+@media (max-width:940px){ .about-grid{ grid-template-columns:1fr; gap:34px; } }
+
+/* ================================================================
+   SOFTWARE PORTFOLIO
+   ================================================================ */
+.sw-groups{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+.sw-card{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:26px 26px 22px; }
+.sw-card h3{ font-size:15.5px; display:flex; align-items:center; gap:10px; }
+.sw-card h3 .n{ font-family:var(--font-mono); font-size:11px; color:var(--brass); font-weight:600; }
+.sw-card p{ margin-top:8px; font-size:13.5px; line-height:1.6; color:var(--ink-soft); }
+.sw-tags{ display:flex; flex-wrap:wrap; gap:7px; margin-top:16px; }
+.sw-tags span{ font-family:var(--font-mono); font-size:11.5px; font-weight:600; color:var(--petrol-dark); background:var(--petrol-tint); padding:5px 10px; border-radius:6px; }
+
+@media (max-width:760px){ .sw-groups{ grid-template-columns:1fr; } }
+
+/* ================================================================
+   SOLUTIONS
+   ================================================================ */
+.solutions-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.sol-card{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:30px 26px; transition:border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+.sol-card:hover{ border-color:transparent; box-shadow:0 22px 44px -20px rgba(12,25,22,.2); transform:translateY(-4px); }
+.sol-icon{ width:48px; height:48px; border-radius:11px; background:var(--petrol-tint); display:flex; align-items:center; justify-content:center; color:var(--petrol); margin-bottom:20px; transition:background .2s ease, color .2s ease; }
+.sol-card:hover .sol-icon{ background:var(--brass); color:#fff; }
+.sol-icon svg{ width:22px; height:22px; }
+.sol-card h3{ font-size:17px; margin-bottom:9px; }
+.sol-card p{ font-size:14px; line-height:1.65; color:var(--ink-soft); }
+
+@media (max-width:940px){ .solutions-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:620px){ .solutions-grid{ grid-template-columns:1fr; } }
+
+/* ================================================================
+   INDUSTRIES
+   ================================================================ */
+.industries{ background:var(--surface); }
+.ind-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.ind-card{ position:relative; border-radius:var(--radius); overflow:hidden; aspect-ratio:4/5; isolation:isolate; box-shadow:0 16px 36px -18px rgba(12,25,22,.28); }
+.ind-card img{ width:100%; height:100%; object-fit:cover; transition:transform .6s ease; }
+.ind-card:hover img{ transform:scale(1.06); }
+.ind-card::after{ content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(8,20,18,.88) 8%, rgba(8,20,18,.12) 52%, transparent 75%); }
+.ind-label{ position:absolute; left:20px; right:20px; bottom:20px; z-index:2; }
+.ind-label span{ font-family:var(--font-mono); font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#8FD8CB; }
+.ind-label h3{ color:#fff; font-size:19px; margin-top:6px; }
+
+@media (max-width:940px){ .ind-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:620px){ .ind-grid{ grid-template-columns:1fr; } .ind-card{ aspect-ratio:16/10; } }
+
+/* ================================================================
+   TRAINING PROGRAMS
+   ================================================================ */
+.train-list{ display:grid; gap:16px; }
+.train-row{
+  display:grid; grid-template-columns:72px 1fr auto; gap:20px; align-items:center;
+  padding:22px 24px; background:#fff; border:1px solid var(--line); border-radius:var(--radius-sm);
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.train-row:hover{ border-color:var(--petrol); box-shadow:0 14px 30px -18px rgba(12,25,22,.2); }
+.train-num{ font-family:var(--font-mono); font-size:13px; color:var(--brass); font-weight:600; border:1px solid var(--line); border-radius:8px; height:48px; display:flex; align-items:center; justify-content:center; }
+.train-row h4{ font-size:16px; }
+.train-row p{ margin-top:5px; font-size:13.5px; color:var(--ink-soft); line-height:1.6; }
+.train-dur{ font-family:var(--font-mono); font-size:11.5px; font-weight:600; color:var(--petrol-dark); background:var(--petrol-tint); padding:6px 12px; border-radius:100px; white-space:nowrap; }
+
+@media (max-width:640px){
+  .train-row{ grid-template-columns:1fr; text-align:left; }
+  .train-num{ width:48px; }
+  .train-dur{ justify-self:start; }
+}
+
+/* ================================================================
+   HARDWARE
+   ================================================================ */
+.hw-grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:56px; align-items:center; }
+.hw-visual{ border-radius:var(--radius); overflow:hidden; box-shadow:0 22px 48px -20px rgba(12,25,22,.28); aspect-ratio:4/3.3; }
+.hw-visual img{ width:100%; height:100%; object-fit:cover; }
+.hw-spec{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:24px; }
+.hw-spec-cell{ padding:16px 18px; background:var(--surface); border-radius:10px; }
+.hw-spec-cell b{ display:block; font-family:var(--font-mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px; }
+.hw-spec-cell span{ font-size:14px; font-weight:600; color:var(--ink); }
+
+@media (max-width:940px){ .hw-grid{ grid-template-columns:1fr; gap:32px; } .hw-visual{ order:-1; max-width:420px; margin:0 auto; width:100%; } .hw-spec{ grid-template-columns:1fr 1fr; } }
+@media (max-width:480px){ .hw-spec{ grid-template-columns:1fr; } }
+
+/* ================================================================
+   WHY US
+   ================================================================ */
+.why-grid{ display:grid; grid-template-columns:.85fr 1.15fr; gap:60px; }
+.why-visual{ border-radius:var(--radius); overflow:hidden; box-shadow:0 22px 48px -20px rgba(12,25,22,.28); }
+.why-visual img{ width:100%; height:100%; object-fit:cover; aspect-ratio:4/5; }
+.why-item{ display:grid; grid-template-columns:46px 1fr; gap:18px; padding:22px 0; border-top:1px solid var(--line); }
+.why-item:last-child{ border-bottom:1px solid var(--line); }
+.why-ico{ width:46px; height:46px; border-radius:10px; background:var(--petrol-tint); color:var(--petrol); display:flex; align-items:center; justify-content:center; }
+.why-ico svg{ width:20px; height:20px; }
+.why-item h4{ font-size:16px; margin-bottom:6px; }
+.why-item p{ font-size:14px; line-height:1.65; color:var(--ink-soft); }
+
+@media (max-width:940px){ .why-grid{ grid-template-columns:1fr; gap:34px; } .why-visual{ order:-1; max-width:360px; margin:0 auto; } }
+
+/* ================================================================
+   STATS
+   ================================================================ */
+.stats-band{ background:var(--petrol); }
+.stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); }
+.stat-cell{ padding:46px 24px; text-align:center; border-left:1px solid rgba(255,255,255,.14); }
+.stat-cell:first-child{ border-left:none; }
+.stat-num{ font-family:var(--font-display); font-weight:700; font-size:clamp(1.85rem,1.3vw + 1.5rem,2.5rem); color:#fff; }
+.stat-num.brass{ color:#E8C27E; }
+.stat-label{ font-family:var(--font-mono); font-size:11.5px; font-weight:500; color:#BFE0D9; margin-top:8px; letter-spacing:.03em; }
+
+@media (max-width:940px){ .stats-grid{ grid-template-columns:1fr 1fr; } .stat-cell{ border-left:none; border-top:1px solid rgba(255,255,255,.14); } .stat-cell:nth-child(odd){ border-right:1px solid rgba(255,255,255,.14); } }
+
+/* ================================================================
+   TESTIMONIALS
+   ================================================================ */
+.testi-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.testi-card{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:28px 26px; }
+.testi-quote{ font-size:14.5px; line-height:1.7; color:var(--ink); font-style:italic; }
+.testi-who{ display:flex; align-items:center; gap:12px; margin-top:20px; }
+.testi-avatar{ width:38px; height:38px; border-radius:50%; background:var(--petrol-tint); color:var(--petrol); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-weight:600; font-size:13px; }
+.testi-name{ font-size:13.5px; font-weight:700; color:var(--ink); }
+.testi-role{ font-size:12px; color:var(--ink-faint); }
+
+@media (max-width:940px){ .testi-grid{ grid-template-columns:1fr; } }
+
+/* ================================================================
+   CTA
+   ================================================================ */
+.cta-band{ background:var(--ink); padding:64px 0; }
+.cta-inner{ display:flex; align-items:center; justify-content:space-between; gap:26px; flex-wrap:wrap; }
+.cta-inner h2{ color:#fff; font-size:clamp(1.5rem,1.1rem + 1.4vw,2.1rem); }
+.cta-inner p{ margin-top:8px; color:#B7BDB6; font-size:14.5px; }
+
+@media (max-width:640px){ .cta-inner{ flex-direction:column; align-items:flex-start; } .cta-inner .btn{ width:100%; } }
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+footer{ background:var(--petrol-dark); padding:76px 0 0; color:#BFE0D9; }
+.foot-grid{ display:grid; grid-template-columns:1.3fr .8fr .8fr 1.1fr; gap:44px; padding-bottom:52px; border-bottom:1px solid rgba(255,255,255,.12); }
+.foot-brand p{ margin-top:16px; font-size:13.5px; line-height:1.7; color:#9FC7BD; max-width:32ch; }
+.foot-social{ display:flex; gap:12px; margin-top:22px; }
+.foot-social a{ width:36px; height:36px; border-radius:9px; background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; transition:background .2s ease; }
+.foot-social a:hover{ background:var(--brass); }
+.foot-social svg{ width:16px; height:16px; color:#fff; }
+.foot-col h5{ font-family:var(--font-mono); font-size:11.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:#7FB8AC; margin-bottom:18px; }
+.foot-col ul{ display:grid; gap:12px; }
+.foot-col a{ font-size:13.5px; color:#D8ECE7; transition:color .2s ease; }
+.foot-col a:hover{ color:#fff; }
+.foot-tb .tb-row{ border-top-color:rgba(255,255,255,.12); }
+.foot-tb{ border-color:rgba(255,255,255,.16); background:rgba(255,255,255,.04); }
+.foot-tb .tb-key{ background:rgba(255,255,255,.05); border-right-color:rgba(255,255,255,.12); color:#7FB8AC; }
+.foot-tb .tb-val{ color:#EAF6F2; }
+.foot-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; padding:26px 0; font-size:12.5px; color:#6F9C92; }
+
+@media (max-width:940px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:600px){ .foot-grid{ grid-template-columns:1fr; gap:34px; } }
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav class="nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">
+      <img src="https://technoksha.in/wp-content/uploads/2025/03/Technoksha_Logo_White_Back2-110x78.jpg" alt="Technoksha logo">
+      <span class="brand-name">Technoksha<small>Engineering Technology Partner</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#software">Software</a>
+      <a href="#solutions">Solutions</a>
+      <a href="#training">Training</a>
+      <a href="#industries">Industries</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="tel:+919380825216" class="btn btn-primary nav-cta desktop-only">Call +91 93808 25216</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-panel" id="mobilePanel">
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#software" class="mobile-link">Software</a>
+  <a href="#solutions" class="mobile-link">Solutions</a>
+  <a href="#training" class="mobile-link">Training</a>
+  <a href="#industries" class="mobile-link">Industries</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+  <a href="tel:+919380825216" class="btn btn-primary" style="margin-top:8px;">Call +91 93808 25216</a>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="top">
+  <div class="container hero-inner">
+    <div>
+      <span class="tag">Bengaluru · GST-Verified · Founder-Led</span>
+      <h1>From CAD drawing to <em>finished part</em> — one engineering partner.</h1>
+      <p class="hero-sub">Technoksha supplies and trains teams on the CAD, rendering and manufacturing-intelligence software they run every day — AutoCAD, SolidWorks, Inventor, ZWCAD and Hexagon — and builds the HP &amp; Lenovo workstations powerful enough to run it without lag.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Get a Quote</a>
+        <a href="#solutions" class="btn btn-outline">See What We Do</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-photo">
+        <img src="https://technoksha.in/wp-content/uploads/2018/11/automotive.jpg" alt="Precision engineering and CAD design work">
+        <div class="hero-photo-cap">CAD / CAM · REVERSE ENGINEERING</div>
+      </div>
+      <div class="title-block hero-tb tb-corner">
+        <div class="tb-row"><div class="tb-key">COMPANY</div><div class="tb-val">Technoksha</div></div>
+        <div class="tb-row"><div class="tb-key">GSTIN</div><div class="tb-val">29HEMPR4365Q1Z6</div></div>
+        <div class="tb-row"><div class="tb-key">RATING</div><div class="tb-val">5.0 ★ — IndiaMART</div></div>
+        <div class="tb-row"><div class="tb-key">LOCATION</div><div class="tb-val">Bengaluru, KA</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- trust strip -->
+<section class="strip">
+  <div class="container strip-inner">
+    <div class="strip-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+      <div><b>GST Verified</b><span>29HEMPR4365Q1Z6</span></div>
+    </div>
+    <div class="strip-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 17.3l-5.4 3.2 1.4-6.1L3 10l6.2-.5L12 3.8l2.8 5.7 6.2.5-5 4.4 1.4 6.1z"/></svg>
+      <div><b>5.0 ★ on IndiaMART</b><span>5+ years on platform</span></div>
+    </div>
+    <div class="strip-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+      <div><b>Sole Proprietorship</b><span>Founder-led, Raksha</span></div>
+    </div>
+    <div class="strip-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21c-4-4-8-7.5-8-12a8 8 0 0116 0c0 4.5-4 8-8 12z"/><circle cx="12" cy="9" r="2.6"/></svg>
+      <div><b>Rajajinagar, Bengaluru</b><span>Karnataka, India</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT
+     ============================================================ -->
+<section id="about" class="sec-pad">
+  <div class="container about-grid">
+    <div class="reveal">
+      <span class="tag">Who We Are</span>
+      <h2 style="margin-top:14px;">A small, specialist team — not a five-vendor headache.</h2>
+      <p class="about-lead" style="margin-top:20px;"><strong>Technoksha</strong> is a Bengaluru-based engineering technology reseller and training provider, run by founder Raksha and built around one idea: engineers shouldn't have to juggle a software vendor, a hardware vendor, a trainer and a repair shop just to keep a project moving.</p>
+      <p class="about-more">We sell and support the CAD, rendering and manufacturing-intelligence software our clients actually run, train their teams to use it properly, and supply the HP and Lenovo workstations specced to handle it — for aerospace &amp; defense, oil &amp; gas and automotive teams where tolerances aren't negotiable.</p>
+      <div class="founder-note">
+        <p>"Most of our clients come to us after outgrowing a laptop that can't handle their assemblies, or a training course that taught the menus but not the workflow. We'd rather scope it properly once."</p>
+        <div class="who">— Raksha, Founder, Technoksha</div>
+      </div>
+      <div class="verify-row">
+        <span class="verify-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>GSTIN 29HEMPR4365Q1Z6</span>
+        <span class="verify-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 17.3l-5.4 3.2 1.4-6.1L3 10l6.2-.5L12 3.8l2.8 5.7 6.2.5-5 4.4 1.4 6.1z"/></svg>IndiaMART 5.0★ (5+ yrs)</span>
+      </div>
+    </div>
+    <div class="vm-list reveal">
+      <div class="vm-card">
+        <h4>Vision</h4>
+        <p>To be a trusted, single point of contact for engineering technology in Bengaluru — the CAD, hardware and training partner teams keep coming back to.</p>
+      </div>
+      <div class="vm-card mission">
+        <h4>Mission</h4>
+        <p>To fit the right software, hardware and training to how a team actually works — not the other way around — and stay involved after the sale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SOFTWARE PORTFOLIO
+     ============================================================ -->
+<section id="software" class="sec-pad" style="background:var(--surface);">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="tag">Software We Supply &amp; Support</span>
+      <h2>A full engineering software stack, not one product.</h2>
+      <p>Licensing, onboarding and ongoing support across CAD, visualization and AEC tools — grouped by what your team actually uses them for.</p>
+    </div>
+    <div class="sw-groups reveal-stagger reveal">
+      <div class="sw-card" style="--i:0">
+        <h3><span class="n">01</span> CAD &amp; Mechanical Design</h3>
+        <p>2D drafting through full 3D assemblies, sheet metal and part design.</p>
+        <div class="sw-tags"><span>AutoCAD</span><span>SolidWorks</span><span>Autodesk Inventor</span><span>ZWCAD</span><span>BricsCAD</span></div>
+      </div>
+      <div class="sw-card" style="--i:1">
+        <h3><span class="n">02</span> Rendering &amp; Visualization</h3>
+        <p>Photoreal stills, walkthroughs and animation for design review and sales.</p>
+        <div class="sw-tags"><span>Chaos V-Ray</span><span>KeyShot</span><span>Enscape</span><span>Autodesk Maya</span><span>3ds Max</span><span>Houdini FX</span></div>
+      </div>
+      <div class="sw-card" style="--i:2">
+        <h3><span class="n">03</span> Structural &amp; AEC</h3>
+        <p>Analysis and design software for structural and civil engineering teams.</p>
+        <div class="sw-tags"><span>Bentley Structural WorkSuite</span><span>STAAD Pro</span></div>
+      </div>
+      <div class="sw-card" style="--i:3">
+        <h3><span class="n">04</span> Document &amp; Productivity Tools</h3>
+        <p>PDF editing, markup and document management for engineering paperwork.</p>
+        <div class="sw-tags"><span>Foxit PDF</span><span>Kofax Power PDF</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SOLUTIONS
+     ============================================================ -->
+<section id="solutions" class="sec-pad">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="tag">What We Do</span>
+      <h2>Six services that shorten your path from idea to part.</h2>
+      <p>Software, training, design services and the hardware to run it all — scoped to how your team actually works.</p>
+    </div>
+    <div class="solutions-grid reveal-stagger reveal">
+      <div class="sol-card" style="--i:0">
+        <div class="sol-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg></div>
+        <h3>Multi-CAD Training</h3>
+        <p>Hands-on, industry-grade courses on AutoCAD, Inventor and SolidWorks — scoped to your team's skill level, not a generic syllabus.</p>
+      </div>
+      <div class="sol-card" style="--i:1">
+        <div class="sol-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg></div>
+        <h3>Hexagon Manufacturing Intelligence</h3>
+        <p>Bring measurement and metrology data into your workflow to catch problems before they leave the shop floor.</p>
+      </div>
+      <div class="sol-card" style="--i:2">
+        <div class="sol-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg></div>
+        <h3>Reverse Engineering</h3>
+        <p>Turn a physical part into a precise, editable 3D CAD model — including converting legacy 2D drawings into modern 3D.</p>
+      </div>
+      <div class="sol-card" style="--i:3">
+        <div class="sol-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.6 4.6l2 2M17.4 17.4l2 2M4.6 19.4l2-2M17.4 6.6l2-2"/></svg></div>
+        <h3>Animation &amp; Rendering</h3>
+        <p>Photoreal visuals and walkthroughs that sell a design before it's built — for product, architecture and industrial work.</p>
+      </div>
+      <div class="sol-card" style="--i:4">
+        <div class="sol-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="3" width="16" height="12" rx="1.5"/><path d="M9 19h6M12 15v4"/></svg></div>
+        <h3>Workstations &amp; Repair</h3>
+        <p>HP &amp; Lenovo workstations specced to your software, plus plotter and computer/laptop/printer repair.</p>
+      </div>
+      <div class="sol-card" style="--i:5">
+        <div class="sol-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 3 7v5c0 5 4 8 9 10 5-2 9-5 9-10V7z"/><path d="M8 12l3 3 5-6"/></svg></div>
+        <h3>3D Printing (FDM)</h3>
+        <p>Fused Deposition Modelling for cost-effective, durable prototyping — from single parts to short-run batches.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TRAINING PROGRAMS
+     ============================================================ -->
+<section id="training" class="sec-pad" style="background:var(--surface);">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="tag">Training Programs</span>
+      <h2>Courses built for the job, not the certificate.</h2>
+      <p>Small-batch, hands-on CAD training in Rajajinagar, Bengaluru — or scoped for your team on-site.</p>
+    </div>
+    <div class="train-list reveal-stagger reveal">
+      <div class="train-row" style="--i:0">
+        <div class="train-num">01</div>
+        <div><h4>AutoCAD Mechanical</h4><p>2D drafting fundamentals through production-ready mechanical drawings.</p></div>
+        <div class="train-dur">2D Drafting</div>
+      </div>
+      <div class="train-row" style="--i:1">
+        <div class="train-num">02</div>
+        <div><h4>Autodesk Inventor Professional</h4><p>Part design, assemblies, sheet metal and iLogic automation.</p></div>
+        <div class="train-dur">3D Assemblies</div>
+      </div>
+      <div class="train-row" style="--i:2">
+        <div class="train-num">03</div>
+        <div><h4>SolidWorks 3D CAD</h4><p>Full 3D modelling workflow for parts, assemblies and drawings.</p></div>
+        <div class="train-dur">3D CAD</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HARDWARE
+     ============================================================ -->
+<section class="sec-pad">
+  <div class="container hw-grid">
+    <div class="hw-visual reveal">
+      <img src="https://technoksha.in/wp-content/uploads/2018/11/oil-1.jpg" alt="High-performance engineering workstation hardware">
+    </div>
+    <div class="reveal">
+      <span class="tag">Hardware</span>
+      <h2 style="margin-top:14px;">Workstations specced for what you actually run.</h2>
+      <p class="about-more" style="margin-top:16px;">No more waiting on renders or fighting assemblies that lag. We build and supply HP and Lenovo mobile and tower workstations — including the Lenovo ThinkStation P3 — around the CPU and GPU your software stack actually needs.</p>
+      <div class="hw-spec">
+        <div class="hw-spec-cell"><b>CPU</b><span>Intel Xeon · Core i9 · Ryzen Threadripper</span></div>
+        <div class="hw-spec-cell"><b>GPU</b><span>NVIDIA Quadro · AMD Radeon Pro</span></div>
+        <div class="hw-spec-cell"><b>Also Supplied</b><span>HP Plotters</span></div>
+        <div class="hw-spec-cell"><b>Also Serviced</b><span>Computer, Laptop &amp; Printer Repair</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     INDUSTRIES
+     ============================================================ -->
+<section id="industries" class="sec-pad industries">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="tag">Industries We Serve</span>
+      <h2>Built for teams where tolerances actually matter.</h2>
+    </div>
+    <div class="ind-grid reveal-stagger reveal">
+      <div class="ind-card" style="--i:0">
+        <img src="https://technoksha.in/wp-content/uploads/2018/11/aerospace.jpg" alt="Aerospace and defense engineering">
+        <div class="ind-label"><span>Precision-Critical</span><h3>Aerospace &amp; Defense</h3></div>
+      </div>
+      <div class="ind-card" style="--i:1">
+        <img src="https://technoksha.in/wp-content/uploads/2018/11/oil-1.jpg" alt="Oil and gas industry engineering">
+        <div class="ind-label"><span>Heavy Engineering</span><h3>Oil &amp; Gas</h3></div>
+      </div>
+      <div class="ind-card" style="--i:2">
+        <img src="https://technoksha.in/wp-content/uploads/2018/11/automotive.jpg" alt="Automotive industry engineering">
+        <div class="ind-label"><span>High-Volume Design</span><h3>Automotive</h3></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHY US
+     ============================================================ -->
+<section class="sec-pad">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="tag">Why Technoksha</span>
+      <h2>One team, the whole workflow.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-visual reveal">
+        <img src="https://technoksha.in/wp-content/uploads/2018/11/automotive.jpg" alt="Engineers reviewing a CAD design">
+      </div>
+      <div class="why-list reveal-stagger reveal">
+        <div class="why-item" style="--i:0">
+          <div class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12l6 6L20 6"/></svg></div>
+          <div><h4>End-to-End Solution</h4><p>Software, training and hardware from a single point of contact — not three separate vendors to coordinate.</p></div>
+        </div>
+        <div class="why-item" style="--i:1">
+          <div class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12l6 6L20 6"/></svg></div>
+          <div><h4>Multi-CAD Expertise</h4><p>Real, working knowledge across AutoCAD, SolidWorks, Inventor and ZWCAD — so we recommend what actually fits your workflow.</p></div>
+        </div>
+        <div class="why-item" style="--i:2">
+          <div class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12l6 6L20 6"/></svg></div>
+          <div><h4>Verified &amp; Founder-Led</h4><p>GST-registered sole proprietorship with a 5.0★, 5+ year track record on IndiaMART — you deal directly with the founder, not a call centre.</p></div>
+        </div>
+        <div class="why-item" style="--i:3">
+          <div class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12l6 6L20 6"/></svg></div>
+          <div><h4>Support That Sticks Around</h4><p>We stay involved after the sale — training adoption and workflow fit matter more to us than a one-time purchase.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STATS — EDIT ME: swap placeholder figures for your real ones.
+     "Years on IndiaMART" is already real (5+); the rest are placeholders.
+     ============================================================ -->
+<section class="stats-band">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-cell reveal"><div class="stat-num"><span class="count" data-target="5">0</span>+</div><div class="stat-label">Years on IndiaMART</div></div>
+      <div class="stat-cell reveal"><div class="stat-num brass"><span class="count" data-target="98">0</span>%</div><div class="stat-label">Client Satisfaction — EDIT ME</div></div>
+      <div class="stat-cell reveal"><div class="stat-num"><span class="count" data-target="15">0</span>+</div><div class="stat-label">Software Titles Supported</div></div>
+      <div class="stat-cell reveal"><div class="stat-num brass"><span class="count" data-target="3">0</span></div><div class="stat-label">CAD Certifications Offered</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS — placeholder, swap in real client quotes
+     ============================================================ -->
+<section class="sec-pad" style="background:var(--surface);">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="tag">Client Feedback</span>
+      <h2>What our clients are saying.</h2>
+      <p>Placeholder cards below — swap in real quotes once you've collected a few from recent clients.</p>
+    </div>
+    <div class="testi-grid reveal-stagger reveal">
+      <div class="testi-card" style="--i:0">
+        <p class="testi-quote">"[loram ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.]"</p>
+        <div class="testi-who"><div class="testi-avatar">?</div><div><div class="testi-name">Client Name</div><div class="testi-role">Role, Company</div></div></div>
+      </div>
+      <div class="testi-card" style="--i:1">
+        <p class="testi-quote">"[loram ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.]"</p>
+        <div class="testi-who"><div class="testi-avatar">?</div><div><div class="testi-name">Client Name</div><div class="testi-role">Role, Company</div></div></div>
+      </div>
+      <div class="testi-card" style="--i:2">
+        <p class="testi-quote">"[loram ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.]"</p>
+        <div class="testi-who"><div class="testi-avatar">?</div><div><div class="testi-name">Client Name</div><div class="testi-role">Role, Company</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA
+     ============================================================ -->
+<section class="cta-band">
+  <div class="container cta-inner">
+    <div class="reveal">
+      <h2>Ready to accelerate your engineering workflow?</h2>
+      <p>Get a free consultation, demo, or quote from Technoksha's team.</p>
+    </div>
+    <a href="#contact" class="btn btn-brass reveal">Talk to Us</a>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER / CONTACT
+     ============================================================ -->
+<footer id="contact">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="https://technoksha.in/wp-content/uploads/2025/03/Technoksha_Logo_White_Back2-110x78.jpg" alt="Technoksha logo" style="height:42px; width:auto;">
+        <p>Your engineering technology partner for design software, training, manufacturing intelligence and workstation hardware.</p>
+        <div class="foot-social">
+          <a href="https://www.linkedin.com/company/technoksha" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95C20.9 8.75 22 11 22 14.5V21h-4v-5.7c0-1.36-.02-3.1-1.9-3.1-1.9 0-2.2 1.48-2.2 3v5.8H9z"/></svg></a>
+          <a href="https://www.instagram.com/technoksha/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="https://x.com/Technoksha" aria-label="X" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3l7.5 9.5L3.4 21H6l5.8-6.6L16.5 21H21l-8-10.1L20.3 3h-2.6l-5.2 6-4.5-6z"/></svg></a>
+          <a href="https://www.facebook.com/p/Technoksha-61574852914250/" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.6h2.6l.4-3h-3v-1.9c0-.87.24-1.46 1.5-1.46H16.6V4.3C16.3 4.26 15.3 4.17 14.1 4.17c-2.4 0-4.05 1.47-4.05 4.16v2.24H7.4v3h2.65V21h3.45z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="foot-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#software">Software</a></li>
+          <li><a href="#solutions">Solutions</a></li>
+          <li><a href="#training">Training</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h5>Get in Touch</h5>
+        <ul>
+          <li><a href="https://maps.google.com/?q=No.+1579+6th+Main,+E+Block,+2nd+Stage+Rajajinagar,+Bengaluru+560010" target="_blank" rel="noopener">No. 1579, 6th Main, E Block,<br>2nd Stage Rajajinagar,<br>Bengaluru – 560010</a></li>
+          <li><a href="mailto:info@technoksha.com">info@technoksha.com</a></li>
+          <li><a href="tel:+919380825216">+91 93808 25216</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h5>Business Details</h5>
+        <div class="title-block foot-tb">
+          <div class="tb-row"><div class="tb-key">GSTIN</div><div class="tb-val">29HEMPR4365Q1Z6</div></div>
+          <div class="tb-row"><div class="tb-key">TYPE</div><div class="tb-val">Sole Proprietorship</div></div>
+          <div class="tb-row"><div class="tb-key">FOUNDER</div><div class="tb-val">Raksha</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p>© <span id="year"></span> Technoksha. All rights reserved.</p>
+      <p>Rajajinagar, Bengaluru, Karnataka, India</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const hamburger = document.getElementById('hamburgerBtn');
+const panel = document.getElementById('mobilePanel');
+hamburger.addEventListener('click', () => {
+  const open = panel.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', open);
+  document.body.classList.toggle('menu-open', open);
+});
+panel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  panel.classList.remove('open');
+  hamburger.classList.remove('open');
+  document.body.classList.remove('menu-open');
+}));
+
+const nav = document.getElementById('siteNav');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 30); });
+
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+}, { threshold: 0.15 });
+revealEls.forEach(el => io.observe(el));
+
+const counters = document.querySelectorAll('.count');
+const statsIO = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = parseInt(el.dataset.target, 10);
+    const duration = 1300;
+    const start = performance.now();
+    function tick(now){
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+    statsIO.unobserve(el);
+  });
+}, { threshold: 0.4 });
+counters.forEach(c => statsIO.observe(c));
+</script>
+</body>
+</html>

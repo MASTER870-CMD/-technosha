@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technoksha | Premium Engineering Technology Partner</title>
+<meta name="description" content="Technoksha bridges the gap between design, technology, and manufacturing with multi-CAD training, software solutions, and high-performance HP/Lenovo workstations.">
+<link rel="icon" href="https://technoksha.in/wp-content/uploads/2025/03/Technoksha_Logo_White_Back2-110x78.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   1. ARCHITECTURAL TOKENS & VARIABLES
+   Premium Light Theme: Crisp White, Platinum, Brushed Gold. 
+   Strictly NO dark modes, NO purple, NO pink.
+   ========================================================================== */
+:root {
+    /* Backgrounds - Pure and Bright */
+    --color-bg-pure: #FFFFFF;
+    --color-bg-offset: #F8F9FA;
+    --color-bg-platinum: #E9ECEF;
+    
+    /* Text - High Contrast Charcoal (Not Black) */
+    --color-text-main: #212529;
+    --color-text-muted: #495057;
+    --color-text-faint: #868E96;
+    
+    /* Accents - Premium Brushed Gold */
+    --color-accent-gold: #C5A059;
+    --color-accent-gold-hover: #B08D4A;
+    --color-accent-gold-light: rgba(197, 160, 89, 0.1);
+    
+    /* UI Elements */
+    --color-border: #DEE2E6;
+    --color-border-heavy: #CED4DA;
+    
+    /* Typography */
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    
+    /* Layout */
+    --container-width: 1320px;
+    --nav-height: 90px;
+    
+    /* Spacing & Radii */
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 4rem;
+    --spacing-xxl: 7rem;
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    
+    /* Shadows - Soft, Premium Elevation */
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.03);
+    --shadow-hover: 0 12px 30px rgba(0, 0, 0, 0.06);
+    --shadow-heavy: 0 20px 40px rgba(0, 0, 0, 0.08);
+    
+    /* Transitions */
+    --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   2. RESET & BASE
+   ========================================================================== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+body {
+    font-family: var(--font-sans);
+    color: var(--color-text-main);
+    background-color: var(--color-bg-pure);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+img, svg { display: block; max-width: 100%; height: auto; }
+a { text-decoration: none; color: inherit; transition: color var(--transition-base); }
+ul { list-style: none; }
+button, input, textarea, select { font: inherit; border: none; background: transparent; }
+button { cursor: pointer; }
+h1, h2, h3, h4, h5 { line-height: 1.2; font-weight: 700; letter-spacing: -0.02em; color: var(--color-text-main); }
+:focus-visible { outline: 2px solid var(--color-accent-gold); outline-offset: 4px; }
+
+/* ==========================================================================
+   3. UTILITIES & ANIMATIONS
+   ========================================================================== */
+.container { width: 100%; max-width: var(--container-width); margin: 0 auto; padding: 0 24px; }
+.section-padding { padding: var(--spacing-xxl) 0; }
+
+.eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-accent-gold);
+    margin-bottom: var(--spacing-md);
+}
+.eyebrow::before { content: ''; width: 30px; height: 2px; background-color: var(--color-accent-gold); }
+
+/* Smooth Scroll Reveals */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity var(--transition-smooth), transform var(--transition-smooth); will-change: transform, opacity; }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.stagger-1 { transition-delay: 100ms; }
+.stagger-2 { transition-delay: 200ms; }
+.stagger-3 { transition-delay: 300ms; }
+
+/* Buttons */
+.btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 16px 32px; font-size: 1rem; font-weight: 700;
+    border-radius: var(--radius-sm); transition: all var(--transition-base);
+    box-shadow: var(--shadow-soft);
+}
+.btn-primary { background-color: var(--color-accent-gold); color: #FFFFFF; }
+.btn-primary:hover { background-color: var(--color-accent-gold-hover); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+.btn-outline { background-color: var(--color-bg-pure); color: var(--color-text-main); border: 1px solid var(--color-border-heavy); }
+.btn-outline:hover { border-color: var(--color-accent-gold); color: var(--color-accent-gold); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+
+/* ==========================================================================
+   4. NAVIGATION
+   ========================================================================== */
+.navbar {
+    position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+    background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px);
+    border-bottom: 1px solid transparent; z-index: 1000; transition: all var(--transition-base);
+    display: flex; align-items: center;
+}
+.navbar.scrolled { border-bottom-color: var(--color-border); box-shadow: var(--shadow-soft); height: 76px; }
+.nav-container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.brand img { height: 50px; transition: height var(--transition-base); }
+.navbar.scrolled .brand img { height: 40px; }
+
+.nav-menu { display: flex; gap: 40px; align-items: center; }
+.nav-link { font-size: 0.95rem; font-weight: 600; color: var(--color-text-muted); position: relative; padding: 8px 0; }
+.nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--color-accent-gold); transition: width var(--transition-base); }
+.nav-link:hover { color: var(--color-text-main); }
+.nav-link:hover::after { width: 100%; }
+
+.menu-toggle { display: none; flex-direction: column; justify-content: space-between; width: 32px; height: 22px; z-index: 1001; }
+.menu-toggle span { display: block; width: 100%; height: 2px; background-color: var(--color-text-main); transition: all 0.3s; }
+.menu-toggle.is-active span:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+.menu-toggle.is-active span:nth-child(2) { opacity: 0; }
+.menu-toggle.is-active span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+.mobile-sidebar {
+    position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100vh;
+    background-color: var(--color-bg-pure); box-shadow: -10px 0 40px rgba(0,0,0,0.05);
+    z-index: 999; padding: 120px 40px 40px; display: flex; flex-direction: column; gap: 24px;
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mobile-sidebar.is-open { right: 0; }
+.mobile-sidebar a { font-size: 1.25rem; font-weight: 700; color: var(--color-text-main); border-bottom: 1px solid var(--color-border); padding-bottom: 16px; }
+
+@media (max-width: 1024px) {
+    .nav-menu, .nav-actions { display: none; }
+    .menu-toggle { display: flex; }
+}
+
+/* ==========================================================================
+   5. PREMIUM HERO SECTION
+   ========================================================================== */
+.hero { padding-top: calc(var(--nav-height) + 60px); padding-bottom: 100px; background-color: var(--color-bg-offset); position: relative; overflow: hidden; }
+/* Subtle luxury pattern */
+.hero::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: radial-gradient(var(--color-border) 1px, transparent 1px);
+    background-size: 40px 40px; opacity: 0.5; z-index: 0;
+}
+.hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+.hero-content h1 { font-size: clamp(2.5rem, 4vw, 4.5rem); margin-bottom: 24px; leading-trim: both; }
+.hero-content p { font-size: clamp(1rem, 2vw, 1.15rem); color: var(--color-text-muted); margin-bottom: 40px; max-width: 90%; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+
+.hero-visual { position: relative; }
+.hero-image-container { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-heavy); aspect-ratio: 4/4.5; background-color: var(--color-bg-platinum); }
+.hero-image-container img { width: 100%; height: 100%; object-fit: cover; }
+.hero-badge {
+    position: absolute; bottom: -30px; left: -40px; background-color: var(--color-bg-pure);
+    padding: 24px 32px; border-radius: var(--radius-md); box-shadow: var(--shadow-heavy);
+    display: flex; align-items: center; gap: 20px; border: 1px solid var(--color-border);
+}
+.hero-badge-icon { width: 56px; height: 56px; background-color: var(--color-accent-gold-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--color-accent-gold); }
+
+@media (max-width: 1024px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 60px; text-align: center; }
+    .hero-content p { margin: 0 auto 40px; }
+    .hero-actions { justify-content: center; }
+    .hero-visual { max-width: 600px; margin: 0 auto; }
+    .hero-badge { left: 20px; bottom: 20px; padding: 16px 20px; }
+}
+@media (max-width: 576px) { .hero-badge { display: none; } }
+
+/* ==========================================================================
+   6. TRUST / CREDIBILITY STRIP
+   ========================================================================== */
+.trust-strip { background-color: var(--color-bg-pure); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); padding: 40px 0; }
+.trust-grid { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 30px; }
+.trust-item { display: flex; align-items: center; gap: 16px; }
+.trust-item svg { width: 32px; height: 32px; stroke: var(--color-accent-gold); }
+.trust-item h4 { font-size: 1.1rem; margin-bottom: 4px; }
+.trust-item p { font-size: 0.85rem; color: var(--color-text-faint); font-family: var(--font-mono); text-transform: uppercase; }
+
+/* ==========================================================================
+   7. CORPORATE PROFILE
+   ========================================================================== */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.about-lead { font-size: clamp(1.2rem, 2vw, 1.5rem); line-height: 1.7; margin-bottom: 24px; color: var(--color-text-main); font-weight: 500; }
+.about-text { color: var(--color-text-muted); font-size: 1.1rem; margin-bottom: 32px; }
+
+.vm-card { background: var(--color-bg-offset); border: 1px solid var(--color-border); padding: 32px; border-radius: var(--radius-md); margin-bottom: 24px; transition: var(--transition-base); }
+.vm-card:hover { background: var(--color-bg-pure); box-shadow: var(--shadow-soft); border-color: var(--color-accent-gold); }
+.vm-card h4 { font-family: var(--font-mono); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-accent-gold); margin-bottom: 12px; }
+
+@media (max-width: 992px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+/* ==========================================================================
+   8. SOFTWARE LICENSING & PRICING
+   ========================================================================== */
+.software-section { background-color: var(--color-bg-offset); }
+.section-header { max-width: 800px; margin-bottom: 60px; }
+.section-header h2 { font-size: clamp(2rem, 3vw, 3rem); margin-bottom: 16px; }
+
+.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+.price-card { background: var(--color-bg-pure); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 40px; transition: var(--transition-base); display: flex; flex-direction: column; }
+.price-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-heavy); border-color: var(--color-accent-gold); }
+.price-card h3 { font-size: 1.5rem; margin-bottom: 8px; }
+.price-card .price { font-size: 2rem; font-weight: 800; color: var(--color-accent-gold); margin-bottom: 24px; font-family: var(--font-mono); }
+.price-card .price span { font-size: 1rem; color: var(--color-text-faint); font-weight: 500; }
+.price-features { margin-bottom: 32px; flex-grow: 1; }
+.price-features li { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; color: var(--color-text-muted); font-size: 0.95rem; }
+.price-features svg { width: 20px; height: 20px; stroke: var(--color-accent-gold); flex-shrink: 0; margin-top: 2px; }
+
+/* ==========================================================================
+   9. HARDWARE ARCHITECTURE (Responsive Grid)
+   ========================================================================== */
+.hardware-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: center; }
+.hardware-visual img { border-radius: var(--radius-lg); box-shadow: var(--shadow-heavy); object-fit: cover; aspect-ratio: 4/3; }
+
+.spec-list { margin-top: 40px; border-top: 1px solid var(--color-border); }
+.spec-row { display: flex; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--color-border); }
+.spec-label { width: 35%; font-family: var(--font-mono); font-size: 0.9rem; color: var(--color-text-faint); text-transform: uppercase; font-weight: 700; }
+.spec-value { width: 65%; font-size: 1.1rem; font-weight: 600; color: var(--color-text-main); }
+
+@media (max-width: 1024px) { .hardware-grid { grid-template-columns: 1fr; } .hardware-visual { order: -1; } }
+@media (max-width: 576px) { .spec-row { flex-direction: column; align-items: flex-start; gap: 8px; } .spec-label, .spec-value { width: 100%; } }
+
+/* ==========================================================================
+   10. INDUSTRIES SHOWCASE (Premium Image Cards)
+   ========================================================================== */
+.industry-section { background-color: var(--color-bg-pure); }
+.industry-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.industry-card { position: relative; border-radius: var(--radius-md); overflow: hidden; aspect-ratio: 4/5; cursor: pointer; box-shadow: var(--shadow-soft); }
+.industry-card img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-smooth); }
+.industry-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%); transition: background var(--transition-base); }
+.industry-card:hover img { transform: scale(1.08); }
+.industry-card:hover::after { background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(197, 160, 89, 0.2) 100%); }
+.industry-content { position: absolute; bottom: 0; left: 0; width: 100%; padding: 32px; z-index: 2; }
+.industry-content span { font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-accent-gold); margin-bottom: 8px; display: block; letter-spacing: 0.1em; }
+.industry-content h3 { color: #FFFFFF; font-size: 1.5rem; }
+
+/* ==========================================================================
+   11. DATA STATS (Responsive Flex)
+   ========================================================================== */
+.stats-wrapper { background-color: var(--color-bg-offset); padding: 80px 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.stats-container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
+.stat-box { flex: 1; min-width: 200px; text-align: center; }
+.stat-number { font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 800; color: var(--color-text-main); line-height: 1; margin-bottom: 12px; }
+.stat-label { font-family: var(--font-mono); font-size: 0.9rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* ==========================================================================
+   12. CONTACT / GMAIL REDIRECT FORM
+   ========================================================================== */
+.contact-section { background-color: var(--color-bg-pure); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; }
+.contact-info h2 { font-size: clamp(2rem, 3vw, 3rem); margin-bottom: 24px; }
+.contact-info p { color: var(--color-text-muted); font-size: 1.1rem; margin-bottom: 40px; }
+
+.contact-card { background-color: var(--color-bg-pure); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 48px; box-shadow: var(--shadow-heavy); }
+.form-group { margin-bottom: 24px; }
+.form-group label { display: block; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; color: var(--color-text-main); }
+.form-group label span { color: var(--color-text-faint); font-weight: 400; font-size: 0.8rem; margin-left: 4px; }
+.form-control { width: 100%; padding: 16px; border: 1px solid var(--color-border-heavy); border-radius: var(--radius-sm); font-size: 1rem; font-family: inherit; transition: all 0.2s; background: var(--color-bg-offset); color: var(--color-text-main); }
+.form-control:focus { outline: none; border-color: var(--color-accent-gold); background: var(--color-bg-pure); box-shadow: 0 0 0 4px var(--color-accent-gold-light); }
+textarea.form-control { resize: vertical; min-height: 120px; }
+
+@media (max-width: 992px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } .contact-card { padding: 32px 24px; } }
+
+/* ==========================================================================
+   13. LIGHT THEME FOOTER
+   ========================================================================== */
+.footer { background-color: var(--color-bg-offset); border-top: 1px solid var(--color-border); padding: 80px 0 40px; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.5fr; gap: 60px; margin-bottom: 60px; }
+.footer-brand .brand-text { font-size: 1.5rem; font-weight: 800; margin-bottom: 16px; display: block; color: var(--color-text-main); }
+.footer-brand p { color: var(--color-text-muted); margin-bottom: 24px; max-width: 320px; }
+.footer-heading { font-family: var(--font-mono); font-size: 0.9rem; text-transform: uppercase; color: var(--color-text-main); margin-bottom: 24px; letter-spacing: 0.05em; }
+.footer-links li { margin-bottom: 12px; }
+.footer-links a { color: var(--color-text-muted); }
+.footer-links a:hover { color: var(--color-accent-gold); }
+.footer-contact li { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 16px; color: var(--color-text-muted); }
+.footer-contact svg { width: 20px; height: 20px; stroke: var(--color-accent-gold); flex-shrink: 0; margin-top: 2px; }
+.footer-bottom { padding-top: 32px; border-top: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: center; color: var(--color-text-faint); font-size: 0.9rem; }
+
+@media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; } }
+@media (max-width: 576px) { .footer-grid { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; gap: 16px; text-align: center; } }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="navbar" id="navbar">
+    <div class="container nav-container">
+        <a href="#top" class="brand">
+            <img src="https://technoksha.in/wp-content/uploads/2025/03/Technoksha_Logo_White_Back2-110x78.jpg" alt="Technoksha Logo">
+        </a>
+        <ul class="nav-menu">
+            <li><a href="#about" class="nav-link">Corporate Profile</a></li>
+            <li><a href="#software" class="nav-link">Licensing</a></li>
+            <li><a href="#hardware" class="nav-link">Hardware Architecture</a></li>
+            <li><a href="#industries" class="nav-link">Sectors</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="#contact" class="btn btn-primary">Connect with Founder</a>
+        </div>
+        <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Navigation">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- MOBILE SIDEBAR -->
+<aside class="mobile-sidebar" id="mobile-sidebar">
+    <a href="#about">Corporate Profile</a>
+    <a href="#software">Software Licensing</a>
+    <a href="#hardware">Hardware Architecture</a>
+    <a href="#industries">Sectors</a>
+    <a href="#contact" style="color: var(--color-accent-gold); margin-top: 24px; border:none;">Connect with Founder</a>
+</aside>
+
+<!-- HERO SECTION -->
+<header class="hero" id="top">
+    <div class="container hero-grid">
+        <div class="hero-content reveal">
+            <span class="eyebrow">Bengaluru Headquarters</span>
+            <h1>Engineering Excellence, <br>Zero <span style="color: var(--color-accent-gold);">Tolerances.</span></h1>
+            <p>Empowering designers, manufacturers, and architects with cutting-edge CAD software, professional training, and high-performance workstations. A completely unified ecosystem.</p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn btn-primary">Initialize Project</a>
+                <a href="#software" class="btn btn-outline">Explore Solutions</a>
+            </div>
+        </div>
+        <div class="hero-visual reveal stagger-1">
+            <div class="hero-image-container">
+                <!-- High-quality crisp architectural/engineering representation -->
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop" alt="Premium CAD Workstation Environment">
+            </div>
+            <div class="hero-badge">
+                <div class="hero-badge-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <div>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 2px;">IndiaMART Certified</h4>
+                    <p style="font-size: 0.85rem; color: var(--color-text-faint); font-family: var(--font-mono); text-transform: uppercase;">4.2★ Rating (5+ Years)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip reveal">
+    <div class="container trust-grid">
+        <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <div><h4>GST Verified</h4><p>29HEMPR4365Q1Z6</p></div>
+        </div>
+        <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+            <div><h4>Sole Proprietorship</h4><p>Founder-led, Raksha</p></div>
+        </div>
+        <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <div><h4>Authorized Partner</h4><p>HP & Lenovo Architecture</p></div>
+        </div>
+        <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 21c-4-4-8-7.5-8-12a8 8 0 0116 0c0 4.5-4 8-8 12z"/><circle cx="12" cy="9" r="2.6"/></svg>
+            <div><h4>Bengaluru, KA</h4><p>Rajajinagar Operations</p></div>
+        </div>
+    </div>
+</div>
+
+<!-- ABOUT SECTION -->
+<section id="about" class="section-padding">
+    <div class="container about-grid">
+        <div class="reveal">
+            <span class="eyebrow">Corporate Profile</span>
+            <h2 style="font-size: clamp(2rem, 3vw, 2.75rem); margin-bottom: 24px;">Finding A Permanent Solution Is Our Ultimate Goal.</h2>
+            <p class="about-lead">Technoksha is committed to bridging the gap between design, technology, and manufacturing.</p>
+            <p class="about-text">We offer CAD software solutions, expert training, and professional design services, ensuring a seamless workflow for engineers, manufacturers, and architects. From 2D drafting to 3D modeling, rendering, and reverse engineering, we support businesses with the tools and expertise they need to innovate and excel.</p>
+        </div>
+        <div class="reveal stagger-1">
+            <div class="vm-card">
+                <h4>Vision Directive</h4>
+                <p>To be a leading provider of innovative engineering solutions, empowering professionals and organizations to achieve excellence through cutting-edge technology and expertise.</p>
+            </div>
+            <div class="vm-card mission">
+                <h4>Mission Protocol</h4>
+                <p>Our mission is to enhance our clients' capabilities by providing tailored solutions that drive efficiency, foster innovation, and ensure success in their respective fields.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SOFTWARE LICENSING & PRICING -->
+<section id="software" class="section-padding software-section">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="eyebrow">Enterprise Licensing</span>
+            <h2>Industry-Leading Software.</h2>
+            <p style="color: var(--color-text-muted); font-size: 1.1rem;">Official distribution and licensing for the world's most powerful CAD, rendering, and structural architecture platforms.</p>
+        </div>
+        
+        <div class="pricing-grid">
+            <!-- Product 1 -->
+            <div class="price-card reveal">
+                <h3>Autodesk AutoCAD</h3>
+                <div class="price">₹1,13,000<span>/Year</span></div>
+                <ul class="price-features">
+                    <li><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg> Full 2D & 3D Drafting capabilities</li>
+                    <li><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg> Industry-specific toolsets included</li>
+                    <li><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg> Official Autodesk Licensing</li>
+                </ul>
+                <a href="#contact" class="btn btn-outline" style="width: 100%;">Request License</a>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="price-card reveal stagger-1" style="border-color: var(--color-accent-gold); box-shadow: var(--shadow-heavy);">
+                <h3>Keyshot Animation</h3>
+                <div class="price">₹1,10,000<span>/Piece</span></div>
+                <ul class="price-features">
+                    <li><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg> Real-time 3D rendering</li>
+                    <li><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg> Advanced material editing & lighting</li>
+                    <li><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg> Perpetual piece license configuration</li>
+                </ul>
+                <a href="#contact" class="btn btn-primary" style="width: 100%;">Request License</a>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="price-card reveal stagger-2">
+                <h3>SketchUp Pro 3D</h3>
+                <div class="price">₹40,000<span>/Piece</span></div>
+                <ul class="price-features">
+                    <li><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg> Intuitive 3D design software</li>
+                    <li><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg> Architectural & interior modeling</li>
+                    <li><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg> V-Ray and Enscape integration ready</li>
+                </ul>
+                <a href="#contact" class="btn btn-outline" style="width: 100%;">Request License</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HARDWARE ARCHITECTURE -->
+<section id="hardware" class="section-padding">
+    <div class="container hardware-grid">
+        <div class="reveal">
+            <span class="eyebrow">Workstation Infrastructure</span>
+            <h2 style="font-size: clamp(2rem, 3vw, 2.75rem); margin-bottom: 24px;">Hardware specced for what you actually run.</h2>
+            <p style="color: var(--color-text-muted); font-size: 1.1rem;">We don't just sell workstations—we provide a complete CAD ecosystem. Our HP and Lenovo systems are certified to run AutoCAD, SolidWorks, Inventor, and 3ds Max flawlessly.</p>
+            
+            <div class="spec-list">
+                <div class="spec-row">
+                    <div class="spec-label">Processing Power (CPU)</div>
+                    <div class="spec-value">Intel Xeon · Core i9 · Ryzen Threadripper</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-label">Professional Graphics</div>
+                    <div class="spec-value">NVIDIA Quadro RTX · AMD Radeon Pro</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-label">Reliability Metrics</div>
+                    <div class="spec-value">ECC Memory · NVMe SSDs · Advanced Thermal Cooling</div>
+                </div>
+            </div>
+        </div>
+        <div class="hardware-visual reveal stagger-1">
+            <!-- Premium clean hardware presentation -->
+            <img src="https://images.unsplash.com/photo-1587831990711-23ca6441447b?q=80&w=2069&auto=format&fit=crop" alt="Premium Workstation Hardware">
+        </div>
+    </div>
+</section>
+
+<!-- INDUSTRIES SHOWCASE (Premium Automotive Visual) -->
+<section id="industries" class="section-padding industry-section">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="eyebrow">Sectors We Serve</span>
+            <h2>Built for Zero-Tolerance Teams.</h2>
+            <p style="color: var(--color-text-muted); font-size: 1.1rem;">Deploying advanced CAD and CAM systems across industries where micrometer precision is non-negotiable.</p>
+        </div>
+        
+        <div class="industry-grid">
+            <!-- Industry 1 -->
+            <div class="industry-card reveal">
+                <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?q=80&w=2070&auto=format&fit=crop" alt="Aerospace Engineering">
+                <div class="industry-content">
+                    <span>01 // PRECISION-CRITICAL</span>
+                    <h3>Aerospace & Defense</h3>
+                </div>
+            </div>
+            
+            <!-- Industry 2: Featuring a premium Luxury car subtly matching user interest -->
+            <div class="industry-card reveal stagger-1">
+                <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=2070&auto=format&fit=crop" alt="Luxury Automotive Engineering">
+                <div class="industry-content">
+                    <span>02 // HIGH-VOLUME DESIGN</span>
+                    <h3>Automotive Industry</h3>
+                </div>
+            </div>
+            
+            <!-- Industry 3 -->
+            <div class="industry-card reveal stagger-2">
+                <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop" alt="Heavy Engineering">
+                <div class="industry-content">
+                    <span>03 // HEAVY ENGINEERING</span>
+                    <h3>Oil & Gas Sector</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STATS METRICS -->
+<div class="stats-wrapper reveal">
+    <div class="container">
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-number">5+</div>
+                <div class="stat-label">Years of Excellence</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" style="color: var(--color-accent-gold);">10</div>
+                <div class="stat-label">Specialist Team Size</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Software Titles Supported</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" style="color: var(--color-accent-gold);">₹600</div>
+                <div class="stat-label">/Hour Mechanical Design</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CONTACT FORM WITH GMAIL REDIRECT -->
+<section id="contact" class="section-padding contact-section">
+    <div class="container contact-grid">
+        <div class="contact-info reveal">
+            <span class="eyebrow">Connect With Us</span>
+            <h2>Ready to upgrade your CAD ecosystem?</h2>
+            <p>Fill out the required information below. Upon submission, you will be securely redirected to your Gmail composer to send your inquiry directly to Raksha and our executive team.</p>
+            
+            <ul style="margin-top: 40px;">
+                <li style="display: flex; gap: 16px; margin-bottom: 24px;">
+                    <svg viewBox="0 0 24 24" fill="none" width="24" height="24" stroke="var(--color-accent-gold)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <div>
+                        <h4 style="margin-bottom: 4px;">Direct Line</h4>
+                        <p style="color: var(--color-text-muted);">+91 93808 25216 <br>+91 80438 23077</p>
+                    </div>
+                </li>
+                <li style="display: flex; gap: 16px;">
+                    <svg viewBox="0 0 24 24" fill="none" width="24" height="24" stroke="var(--color-accent-gold)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <div>
+                        <h4 style="margin-bottom: 4px;">Email Support</h4>
+                        <p style="color: var(--color-text-muted);">info@technoksha.com</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="contact-card reveal stagger-1">
+            <h3 style="margin-bottom: 24px; font-size: 1.5rem;">Request a Proposal</h3>
+            <form id="quoteForm" onsubmit="sendToGmail(event)">
+                <div class="form-group">
+                    <label for="clientName">Full Name</label>
+                    <input type="text" id="clientName" class="form-control" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="clientPhone">Phone Number</label>
+                    <input type="tel" id="clientPhone" class="form-control" required placeholder="+91 98765 43210">
+                </div>
+                <div class="form-group">
+                    <label for="clientCompany">Company Name <span>(Optional)</span></label>
+                    <input type="text" id="clientCompany" class="form-control" placeholder="Acme Engineering Pvt Ltd">
+                </div>
+                <div class="form-group">
+                    <label for="clientMessage">Project Details / Message <span>(Optional)</span></label>
+                    <textarea id="clientMessage" class="form-control" placeholder="Tell us about the software, training, or workstations you require..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                    Continue to Gmail
+                    <svg viewBox="0 0 24 24" fill="none" width="18" height="18" stroke="currentColor" stroke-width="2" style="margin-left: 8px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <span class="brand-text">Technoksha<span style="color: var(--color-accent-gold);">.</span></span>
+                <p>Your premium engineering technology partner for design software, training, manufacturing intelligence and workstation hardware.</p>
+                <p style="font-family: var(--font-mono); font-size: 0.85rem;">GSTIN: 29HEMPR4365Q1Z6</p>
+            </div>
+            <div>
+                <h5 class="footer-heading">Company</h5>
+                <ul class="footer-links">
+                    <li><a href="#about">Corporate Profile</a></li>
+                    <li><a href="#software">Software Portfolio</a></li>
+                    <li><a href="#hardware">Workstations</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="footer-heading">Partner Ecosystem</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Autodesk</a></li>
+                    <li><a href="#">SolidWorks</a></li>
+                    <li><a href="#">HP & Lenovo</a></li>
+                    <li><a href="#">Hexagon MI</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="footer-heading">Headquarters</h5>
+                <ul class="footer-contact">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>No. 1579, 6th Main, E Block,<br>2nd Stage Rajajinagar,<br>Bengaluru – 560010</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <a href="mailto:info@technoksha.com">info@technoksha.com</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© <span id="currentYear"></span> Technoksha. Engineered for Precision.</p>
+            <p>Rajajinagar, Bengaluru, Karnataka, India</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // 1. Dynamic Year
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // 2. Mobile Menu & Navbar Scroll
+    const navbar = document.getElementById('navbar');
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    mobileBtn.addEventListener('click', () => {
+        const isOpen = mobileSidebar.classList.contains('is-open');
+        mobileSidebar.classList.toggle('is-open', !isOpen);
+        mobileBtn.classList.toggle('is-active', !isOpen);
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-sidebar a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileSidebar.classList.remove('is-open');
+            mobileBtn.classList.remove('is-active');
+        });
+    });
+
+    // 3. Hardware-Accelerated Scroll Reveal Animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // 4. Form to Gmail Redirect Logic (No Login Required)
+    function sendToGmail(event) {
+        event.preventDefault(); // Prevent standard form submission
+        
+        // Capture form data safely
+        const name = document.getElementById('clientName').value.trim();
+        const phone = document.getElementById('clientPhone').value.trim();
+        const companyInput = document.getElementById('clientCompany').value.trim();
+        const company = companyInput ? companyInput : 'Not Provided';
+        const messageInput = document.getElementById('clientMessage').value.trim();
+        const message = messageInput ? messageInput : 'No specific details provided.';
+        
+        // Construct Subject and Body
+        const subject = encodeURIComponent(`Business Inquiry from ${name} - ${company}`);
+        const bodyText = `Client Name: ${name}\nPhone: ${phone}\nCompany: ${company}\n\nProject Details / Inquiry:\n${message}\n\n---\nSent via Technoksha Premium Web Portal`;
+        const body = encodeURIComponent(bodyText);
+        
+        // Construct the Gmail Web Composer URL
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=info@technoksha.com&su=${subject}&body=${body}`;
+        
+        // Open Gmail composer in a new tab securely
+        window.open(gmailUrl, '_blank');
+        
+        // Reset form for UX
+        document.getElementById('quoteForm').reset();
+    }
+</script>
+</body>
+</html>
