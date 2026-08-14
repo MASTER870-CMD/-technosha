@@ -1553,7 +1553,7 @@
 
     /* Product hero (variant of .hero without top pad conflict) */
     .prod-hero {
-      padding: 26px 0 60px;
+      padding: calc(var(--nav-h) + 44px) 0 64px;
     }
 
     .prod-hero .hero-sub {
@@ -2291,6 +2291,9 @@
   <header class="hero prod-hero" id="top">
     <div class="container hero-inner">
       <div class="reveal">
+        <img src="./assets/products/Siemens/Siemens_AG_logo.svg" alt="Siemens"
+          style="height: 24px; margin-bottom: 16px;">
+        <br>
         <span class="eyebrow">Advanced 3D CAD Software</span>
         <h1>Siemens NX <span>CAD Software</span></h1>
         <p class="hero-sub">Technoksha provides Siemens NX CAD — 3D modeling, assembly design, drafting, sheet metal
@@ -2313,19 +2316,26 @@
         </div>
       </div>
       <div class="hero-visual reveal">
-        <div class="hero-photo"><img src="./assets/aerospace.jpg" alt="Siemens NX CAD product design and engineering"
-            fetchpriority="high"></div>
+        <div class="hero-photo"><img src="./assets/products/Siemens/Siemens_NX_model.png"
+            alt="Siemens NX CAD product design and engineering" fetchpriority="high"></div>
       </div>
     </div>
   </header>
 
   <section id="packages" class="sec-pad" style="padding-top:20px;">
     <div class="container">
-      <div class="sec-head reveal">
-        <span class="eyebrow">NX CAD Portfolio</span>
+      <div class="sec-head reveal" style="max-width: 800px; text-align: center; margin: 0 auto 40px auto;">
+        <span class="eyebrow" style="justify-content: center;">NX CAD Portfolio</span>
         <h2>Four Packages, One Platform</h2>
         <p>Scalable NX CAD packages so you only pay for the capability your team needs — expand any time.</p>
       </div>
+
+      <div class="reveal"
+        style="max-width: 1000px; margin: 0 auto 60px auto; border-radius: 14px; overflow: hidden; box-shadow: 0 20px 40px -15px rgba(20,30,50,0.2);">
+        <img src="./assets/products/Siemens/NXCAD2.png" alt="Siemens NX CAD User Interface"
+          style="width: 100%; display: block;">
+      </div>
+
       <div class="compact-grid reveal-stagger reveal">
         <div class="compact-card" style="--i:0">
           <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
@@ -2621,6 +2631,14 @@
               <path d="M12 6v6l4 2" />
             </svg>
             <div><b>Hours</b><span>Mon–Fri, 9:30 AM – 6:00 PM IST</span></div>
+          </div>
+          <div
+            style="margin-top: 32px; border-radius: 12px; overflow: hidden; box-shadow: 0 16px 32px -10px rgba(20,30,50,0.15);">
+            <img src="./assets/products/Siemens/nxCAD.jpg" alt="Siemens NX CAD Professional Design"
+              style="width: 100%; display: block;">
+            <div style="background: var(--blue-tint); padding: 16px; text-align: center;">
+              <strong style="color: var(--blue-dark); font-size: 14px;">Authorized Siemens Partner</strong>
+            </div>
           </div>
         </div>
 
