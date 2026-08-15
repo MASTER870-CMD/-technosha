@@ -327,8 +327,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 28px;
+      justify-content: flex-start;
+      padding: 80px 20px 40px;
+      gap: 20px;
+      overflow-y: auto;
       transform: translateY(-100%);
       transition: transform .4s cubic-bezier(.4, 0, .2, 1);
     }
@@ -339,7 +341,7 @@
 
     .mobile-panel a.mobile-link {
       font-family: var(--font-head);
-      font-size: 23px;
+      font-size: 18px;
       font-weight: 800;
       color: var(--text);
     }
@@ -469,10 +471,13 @@
       }
 
       .hero-visual {
-        order: -1;
-        max-width: 340px;
-        margin: 0 auto;
+        /* Text first, image below, 16/9 aspect ratio */
+        max-width: 100%;
+        margin: 32px auto 0;
         width: 100%;
+      }
+      .hero-photo {
+        aspect-ratio: 16/9;
       }
 
       .hero-badge {
@@ -1008,7 +1013,7 @@
 
     .foot-grid {
       display: grid;
-      grid-template-columns: 1.3fr 1fr 1fr;
+      grid-template-columns: 1.5fr 1fr 1.2fr 1fr 1fr;
       gap: 36px;
       padding-bottom: 34px;
     }
@@ -1720,10 +1725,49 @@
   <footer>
     <div class="container">
       <div class="foot-grid">
-        <div class="foot-brand">
-          <img src="./assets/Technoksha_Logo_White_Back2-110x78.jpg" alt="Technoksha logo" loading="lazy">
-          <p>GST-verified engineering technology partner based in Bengaluru.</p>
-          <div class="foot-social">
+        <div class="foot-contact">
+          <img src="./assets/Technoksha Logo.png" alt="Technoksha logo" loading="lazy"
+            style="height:72px; margin-bottom: 24px;">
+          <p><strong>Address</strong><br>No. 1579, 6th Main, E Block,<br>2nd Stage Rajajinagar,<br>Bengaluru – 560010
+          </p>
+          <p><strong>Email</strong><br><a href="mailto:info@technoksha.com">info@technoksha.com</a></p>
+          <p><strong>Call Us</strong><br><a href="tel:+919380825216">+91 93808 25216</a></p>
+          <p><strong>Hours</strong><br>Mon–Fri, 9:30 AM – 6:00 PM IST</p>
+        </div>
+        <div class="foot-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="industries.html">Industries</a></li>
+          <li><a href="workstations.html">Workstations</a></li>
+            <li><a href="#contact">Bengaluru</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h5>Products</h5>
+          <ul>
+            <li><a href="siemens-nx-cad.html">Siemens NX CAD</a></li>
+            <li><a href="zwcad.html">ZWCAD</a></li>
+            <li><a href="hexagon-esprit-edge.html">Hexagon ESPRIT EDGE</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h5>Solutions</h5>
+          <ul>
+            <li><a href="#solutions">Services</a></li>
+            <li><a href="industries.html">Industries</a></li>
+          <li><a href="workstations.html">Workstations</a></li>
+            <li><a href="#solutions">Pricing</a></li>
+            <li><a href="#solutions">Resources</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h5>Support</h5>
+          <ul>
+            <li><a href="#contact">Support Resources</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+          <div class="foot-social" style="margin-top: 24px;">
             <a href="https://www.linkedin.com/company/technoksha" aria-label="LinkedIn" target="_blank"
               rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor">
                 <path
@@ -1739,31 +1783,12 @@
                 fill="currentColor">
                 <path d="M3 3l7.5 9.5L3.4 21H6l5.8-6.6L16.5 21H21l-8-10.1L20.3 3h-2.6l-5.2 6-4.5-6z" />
               </svg></a>
+            <a href="https://www.facebook.com/people/Technoksha/61574852914250/" aria-label="Facebook" target="_blank"
+              rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7v-3h3V9.5C10 6.57 11.74 5 14.38 5c1.28 0 2.62.23 2.62.23v2.88h-1.48c-1.45 0-1.9.9-1.9 1.82V12h3.22l-.51 3h-2.71v6.8C18.56 20.87 22 16.84 22 12z" />
+              </svg></a>
           </div>
-        </div>
-        <div class="foot-col">
-          <h5>Company</h5>
-          <ul>
-            <li><a href="about.html">About</a></li>
-            <li><a href="#solutions">Solutions</a></li>
-            <li><a href="#industries">Industries</a></li>
-          </ul>
-        </div>
-        <div class="foot-col">
-          <h5>Products</h5>
-          <ul>
-            <li><a href="siemens-nx-cad.html">Siemens NX CAD</a></li>
-            <li><a href="zwcad.html">ZWCAD</a></li>
-            <li><a href="hexagon-esprit-edge.html">Hexagon ESPRIT EDGE</a></li>
-          </ul>
-        </div>
-        <div class="foot-col">
-          <h5>Get in Touch</h5>
-          <ul>
-            <li><a href="tel:+919380825216">+91 93808 25216</a></li>
-            <li><a href="mailto:info@technoksha.com">info@technoksha.com</a></li>
-            <li><a href="#contact">Contact Form</a></li>
-          </ul>
         </div>
       </div>
       <div class="foot-bottom">

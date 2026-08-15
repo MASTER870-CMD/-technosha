@@ -333,8 +333,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 28px;
+      justify-content: flex-start;
+      padding: 80px 20px 40px;
+      gap: 20px;
+      overflow-y: auto;
       transform: translateY(-100%);
       transition: transform .4s cubic-bezier(.4, 0, .2, 1);
     }
@@ -345,7 +347,7 @@
 
     .mobile-panel a.mobile-link {
       font-family: var(--font-head);
-      font-size: 23px;
+      font-size: 18px;
       font-weight: 800;
       color: var(--text);
     }
@@ -475,10 +477,13 @@
       }
 
       .hero-visual {
-        order: -1;
-        max-width: 340px;
-        margin: 0 auto;
+        /* Text first, image below, 16/9 aspect ratio */
+        max-width: 100%;
+        margin: 32px auto 0;
         width: 100%;
+      }
+      .hero-photo {
+        aspect-ratio: 16/9;
       }
 
       .hero-badge {
@@ -1559,6 +1564,7 @@
         <li><a href="siemens-nx-cad.html">Siemens NX CAD</a></li>
         <li><a href="zwcad.html">ZWCAD</a></li>
         <li><a href="hexagon-esprit-edge.html">Hexagon ESPRIT EDGE</a></li>
+        <li><a href="workstations.html">Workstations</a></li>
         <li><a href="about.html" class="active" class="active">About</a></li>
         <li><a href="industries.html">Industries</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -1576,6 +1582,7 @@
     <a href="siemens-nx-cad.html" class="mobile-link">Siemens NX CAD</a>
     <a href="zwcad.html" class="mobile-link">ZWCAD</a>
     <a href="hexagon-esprit-edge.html" class="mobile-link">Hexagon ESPRIT EDGE</a>
+    <a href="workstations.html" class="mobile-link">Workstations</a>
     <a href="about.html" class="active" class="active" class="mobile-link">About</a>
     <a href="industries.html" class="mobile-link">Industries</a>
     <a href="#contact" class="mobile-link">Contact</a>
@@ -1615,7 +1622,7 @@
             </svg> Based at Rajajinagar, Bengaluru</div>
         </div>
       </div>
-      <div class="about-photo reveal"><img src="./assets/automotive.jpg" alt="Technoksha engineering work"
+      <div class="about-photo reveal"><img src="./assets/products/engineer-with-laptop-photo.jpg" alt="Technoksha engineering team member working on CAD software"
           loading="lazy"></div>
     </div>
   </section>
@@ -1719,8 +1726,9 @@
         <div class="foot-col">
           <h5>Company</h5>
           <ul>
-            <li><a href="about.html" class="active" class="active">About</a></li>
+            <li><a href="about.html">About</a></li>
             <li><a href="industries.html">Industries</a></li>
+          <li><a href="workstations.html">Workstations</a></li>
             <li><a href="#contact">Bengaluru</a></li>
           </ul>
         </div>
@@ -1737,6 +1745,7 @@
           <ul>
             <li><a href="#solutions">Services</a></li>
             <li><a href="industries.html">Industries</a></li>
+          <li><a href="workstations.html">Workstations</a></li>
             <li><a href="#solutions">Pricing</a></li>
             <li><a href="#solutions">Resources</a></li>
           </ul>
