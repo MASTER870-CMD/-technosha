@@ -2481,22 +2481,6 @@
     </div>
   </section>
 
-  <section id="industries" class="sec-pad">
-    <div class="container">
-      <div class="sec-head reveal">
-        <span class="eyebrow">Industries We Serve</span>
-        <h2>Built for Precision Manufacturing</h2>
-      </div>
-      <div class="icon-chip-list reveal">
-        <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" /></svg>Automotive</span>
-        <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" /></svg>Aerospace</span>
-        <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" /></svg>General Engineering</span>
-        <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" /></svg>Precision Manufacturing</span>
-        <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" /></svg>Tool &amp; Die</span>
-        <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" /></svg>Medical Manufacturing</span>
-      </div>
-    </div>
-  </section>
 
   <section id="why" class="sec-pad" style="background:var(--bg-soft);">
     <div class="container">
@@ -2541,6 +2525,179 @@
 
   
 
+
+  <section id="faq" class="sec-pad">
+    <div class="container" style="max-width:800px; margin:auto;">
+      <div class="sec-head reveal">
+        <h2 style="font-weight: 800; font-size: clamp(28px, 4vw, 36px); letter-spacing: -0.5px;">Frequently Asked Questions</h2>
+      </div>
+      <style>
+        .premium-accordion {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+        .premium-accordion-item {
+          background: #fff;
+          border: 1px solid #e2e8f0;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+          transition: all 0.3s ease;
+        }
+        .premium-accordion-item:hover {
+          box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+          border-color: #cbd5e1;
+        }
+        .premium-accordion-btn {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 22px 24px;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          font-size: 17px;
+          font-weight: 600;
+          color: var(--text);
+          text-align: left;
+          font-family: inherit;
+          transition: color 0.3s ease;
+        }
+        .premium-accordion-btn:hover {
+          color: var(--blue);
+        }
+        .premium-accordion-icon {
+          flex-shrink: 0;
+          width: 24px;
+          height: 24px;
+          position: relative;
+          margin-left: 16px;
+        }
+        .premium-accordion-icon::before,
+        .premium-accordion-icon::after {
+          content: '';
+          position: absolute;
+          background-color: var(--text-soft);
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .premium-accordion-btn:hover .premium-accordion-icon::before,
+        .premium-accordion-btn:hover .premium-accordion-icon::after {
+          background-color: var(--blue);
+        }
+        .premium-accordion-icon::before {
+          width: 14px;
+          height: 2px;
+          border-radius: 2px;
+        }
+        .premium-accordion-icon::after {
+          width: 2px;
+          height: 14px;
+          border-radius: 2px;
+        }
+        .premium-accordion-item.open .premium-accordion-icon::after {
+          transform: translate(-50%, -50%) rotate(90deg);
+          opacity: 0;
+        }
+        .premium-accordion-item.open .premium-accordion-icon::before {
+          background-color: var(--blue);
+        }
+        .premium-accordion-item.open .premium-accordion-btn {
+          color: var(--blue);
+        }
+        .premium-accordion-content {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+          opacity: 0;
+        }
+        .premium-accordion-item.open .premium-accordion-content {
+          opacity: 1;
+        }
+        .premium-accordion-inner {
+          padding: 0 24px 24px 24px;
+          color: var(--text-soft);
+          line-height: 1.65;
+          font-size: 15px;
+        }
+      
+    .footer-brand-logo {
+      height: 72px;
+      margin-bottom: 24px;
+      width: auto;
+    }
+    @media (min-width: 992px) {
+      .footer-brand-logo {
+        height: auto;
+        width: 130px;
+        max-width: 100%;
+      }
+    }
+  </style>
+      <div class="reveal premium-accordion">
+        <div class="premium-accordion-item">
+          <button class="premium-accordion-btn">What is Hexagon ESPRIT EDGE? <div class="premium-accordion-icon"></div></button>
+          <div class="premium-accordion-content">
+            <div class="premium-accordion-inner">Hexagon ESPRIT EDGE is professional CAM software designed for CNC programming, toolpath generation, machining simulation, and production workflow optimization.</div>
+          </div>
+        </div>
+        <div class="premium-accordion-item">
+          <button class="premium-accordion-btn">Is ESPRIT EDGE CAD or CAM software? <div class="premium-accordion-icon"></div></button>
+          <div class="premium-accordion-content">
+            <div class="premium-accordion-inner">ESPRIT EDGE is primarily a dedicated CAM and CNC programming solution focused on programming machine tools and optimizing G-code, rather than acting as general CAD software.</div>
+          </div>
+        </div>
+        <div class="premium-accordion-item">
+          <button class="premium-accordion-btn">What CNC machines can ESPRIT EDGE program? <div class="premium-accordion-icon"></div></button>
+          <div class="premium-accordion-content">
+            <div class="premium-accordion-inner">ESPRIT EDGE supports a wide range of CNC setups including 3-axis to multi-axis milling, turning, complex mill-turn / multi-task machines, Swiss-type machining, and Wire EDM.</div>
+          </div>
+        </div>
+        <div class="premium-accordion-item">
+          <button class="premium-accordion-btn">Does ESPRIT EDGE include CNC machining simulation? <div class="premium-accordion-icon"></div></button>
+          <div class="premium-accordion-content">
+            <div class="premium-accordion-inner">Yes. It provides digital twin machine simulation and verification to check tool movements, fixtures, and potential collisions before running code on the physical machine.</div>
+          </div>
+        </div>
+        <div class="premium-accordion-item">
+          <button class="premium-accordion-btn">What is a post processor in ESPRIT EDGE? <div class="premium-accordion-icon"></div></button>
+          <div class="premium-accordion-content">
+            <div class="premium-accordion-inner">A post processor translates CAM toolpath data into machine-optimized, edit-free CNC G-code tailored specifically for your CNC controller and machine kinematics.</div>
+          </div>
+        </div>
+        <div class="premium-accordion-item">
+          <button class="premium-accordion-btn">How can I get ESPRIT EDGE licensing and pricing? <div class="premium-accordion-icon"></div></button>
+          <div class="premium-accordion-content">
+            <div class="premium-accordion-inner">Pricing depends on your machine types, number of axes, and required modules (milling, turning, mill-turn, etc.). Contact Technoksha to get a custom consultation and official quotation.</div>
+          </div>
+        </div>
+      </div>
+      <script>
+        document.querySelectorAll('.premium-accordion-btn').forEach(button => {
+          button.addEventListener('click', () => {
+            const item = button.closest('.premium-accordion-item');
+            const content = item.querySelector('.premium-accordion-content');
+            const isOpen = item.classList.contains('open');
+            
+            // Close all others
+            document.querySelectorAll('.premium-accordion-item').forEach(otherItem => {
+              otherItem.classList.remove('open');
+              otherItem.querySelector('.premium-accordion-content').style.maxHeight = '0px';
+            });
+            
+            if (!isOpen) {
+              item.classList.add('open');
+              content.style.maxHeight = content.scrollHeight + 'px';
+            }
+          });
+        });
+      </script>
+    </div>
+  </section>
 
   <section class="cta-band">
     <div class="container cta-inner">
