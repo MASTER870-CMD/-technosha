@@ -2643,6 +2643,179 @@
   
 
 
+  <section id="faq" class="sec-pad">
+    <div class="container" style="max-width:800px; margin:auto;">
+      <div class="sec-head reveal">
+        <h2 style="font-weight: 800; font-size: clamp(28px, 4vw, 36px); letter-spacing: -0.5px;">Frequently Asked Questions</h2>
+      </div>
+      <style>
+        .premium-accordion {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+        .premium-accordion-item {
+          background: #fff;
+          border: 1px solid #e2e8f0;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+          transition: all 0.3s ease;
+        }
+        .premium-accordion-item:hover {
+          box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+          border-color: #cbd5e1;
+        }
+        .premium-accordion-btn {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 22px 24px;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          font-size: 17px;
+          font-weight: 600;
+          color: var(--text);
+          text-align: left;
+          font-family: inherit;
+          transition: color 0.3s ease;
+        }
+        .premium-accordion-btn:hover {
+          color: var(--blue);
+        }
+        .premium-accordion-icon {
+          flex-shrink: 0;
+          width: 24px;
+          height: 24px;
+          position: relative;
+          margin-left: 16px;
+        }
+        .premium-accordion-icon::before,
+        .premium-accordion-icon::after {
+          content: '';
+          position: absolute;
+          background-color: var(--text-soft);
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .premium-accordion-btn:hover .premium-accordion-icon::before,
+        .premium-accordion-btn:hover .premium-accordion-icon::after {
+          background-color: var(--blue);
+        }
+        .premium-accordion-icon::before {
+          width: 14px;
+          height: 2px;
+          border-radius: 2px;
+        }
+        .premium-accordion-icon::after {
+          width: 2px;
+          height: 14px;
+          border-radius: 2px;
+        }
+        .premium-accordion-item.open .premium-accordion-icon::after {
+          transform: translate(-50%, -50%) rotate(90deg);
+          opacity: 0;
+        }
+        .premium-accordion-item.open .premium-accordion-icon::before {
+          background-color: var(--blue);
+        }
+        .premium-accordion-item.open .premium-accordion-btn {
+          color: var(--blue);
+        }
+        .premium-accordion-content {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+          opacity: 0;
+        }
+        .premium-accordion-item.open .premium-accordion-content {
+          opacity: 1;
+        }
+        .premium-accordion-inner {
+          padding: 0 24px 24px 24px;
+          color: var(--text-soft);
+          line-height: 1.65;
+          font-size: 15px;
+        }
+      
+    .footer-brand-logo {
+      height: 72px;
+      margin-bottom: 24px;
+      width: auto;
+    }
+    @media (min-width: 992px) {
+      .footer-brand-logo {
+        height: auto;
+        width: 130px;
+        max-width: 100%;
+      }
+    }
+  </style>
+      <div class="reveal premium-accordion">
+        <div class="premium-accordion-item">
+          <button class="premium-accordion-btn">What is Siemens NX CAD? <div class="premium-accordion-icon"></div></button>
+          <div class="premium-accordion-content">
+            <div class="premium-accordion-inner">Siemens NX CAD is professional 3D CAD and product engineering software used to design, model, document and validate mechanical products and complex assemblies.</div>
+          </div>
+        </div>
+        <div class="premium-accordion-item">
+          <button class="premium-accordion-btn">What are the four NX CAD variants? <div class="premium-accordion-icon"></div></button>
+          <div class="premium-accordion-content">
+            <div class="premium-accordion-inner">The current cloud-based Designcenter X CAD portfolio has four tiers: Essentials, Standard, Advanced and Premium.</div>
+          </div>
+        </div>
+        <div class="premium-accordion-item">
+          <button class="premium-accordion-btn">What is NX X Design Standard? <div class="premium-accordion-icon"></div></button>
+          <div class="premium-accordion-content">
+            <div class="premium-accordion-inner">NX X Design Standard is intended for typical mechanical design work involving 3D parts, assemblies, drawings, basic freeform modeling and sheet metal.</div>
+          </div>
+        </div>
+        <div class="premium-accordion-item">
+          <button class="premium-accordion-btn">Can NX handle complex assemblies? <div class="premium-accordion-icon"></div></button>
+          <div class="premium-accordion-content">
+            <div class="premium-accordion-inner">Yes. NX provides advanced assembly modeling capabilities designed for complex product structures and demanding engineering workflows.</div>
+          </div>
+        </div>
+        <div class="premium-accordion-item">
+          <button class="premium-accordion-btn">Is NX available on the cloud? <div class="premium-accordion-icon"></div></button>
+          <div class="premium-accordion-content">
+            <div class="premium-accordion-inner">Yes. Siemens offers NX capabilities through the cloud-based Designcenter X portfolio. NX X is delivered as a SaaS solution, while on-premises Designcenter solutions are also available.</div>
+          </div>
+        </div>
+        <div class="premium-accordion-item">
+          <button class="premium-accordion-btn">Which NX package should I buy? <div class="premium-accordion-icon"></div></button>
+          <div class="premium-accordion-content">
+            <div class="premium-accordion-inner">For standard mechanical design, NX X Design Standard may be appropriate. Teams requiring additional automation and engineering functionality can consider Advanced. Complex product development may require Premium.</div>
+          </div>
+        </div>
+      </div>
+      <script>
+        document.querySelectorAll('.premium-accordion-btn').forEach(button => {
+          button.addEventListener('click', () => {
+            const item = button.closest('.premium-accordion-item');
+            const content = item.querySelector('.premium-accordion-content');
+            const isOpen = item.classList.contains('open');
+            
+            // Close all others
+            document.querySelectorAll('.premium-accordion-item').forEach(otherItem => {
+              otherItem.classList.remove('open');
+              otherItem.querySelector('.premium-accordion-content').style.maxHeight = '0px';
+            });
+            
+            if (!isOpen) {
+              item.classList.add('open');
+              content.style.maxHeight = content.scrollHeight + 'px';
+            }
+          });
+        });
+      </script>
+    </div>
+  </section>
+
   <section class="cta-band">
     <div class="container cta-inner">
       <div class="reveal">
